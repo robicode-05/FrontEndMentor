@@ -1,5 +1,4 @@
 const tasks = [];
-let tasksTodoCounter = 0;
 
 // some default tasks
 // if state = true => the task has been done, false => task is todo
@@ -11,8 +10,16 @@ tasks.push({id: "default_task_4", state: false, text: "Pick up groceries"});
 tasks.push({id: "default_task_5", state: false, text: "Complete Todo App on Frontend Mentor"});
 
 
-function addNewTask(text) {
-  tasks.push({id: crypto.randomUUID(), state: false, text})
+generateTaskListToDisplay(); // initial drawing
+
+/**
+ * Add a new task in the list
+ * @param {Event} event 
+ */
+function addNewTask(event) {
+  tasks.push({id: crypto.randomUUID(), state: false, text: event.target.value});
+  generateTaskListToDisplay();
+  event.target.value = "";
 }
 
 /**
@@ -49,10 +56,39 @@ function removeTaskFromList(taskId) {
  */
 function removeAllCompletedTasks() {
   for (const task of tasks.filter((t) => t.state === true)) {
-    removeTaskFromList(task);
+    const index = tasks.findIndex((t) => t.id === task.id);
+    if (index < 0) continue;  
+    tasks.splice(index, 1);
   }
 
   generateTaskListToDisplay();
+}
+
+/**
+ * Update counter on page
+ */
+function updateLeftItemCounter() {
+  document.querySelector("#left-item-counter").textContent = tasks.length - tasks.filter((t) => t.state).length;
+}
+
+/**
+ * 
+ * @param {string} id 
+ * @param {MouseEvent} event 
+ */
+function clickEventCatcher(taskId, event) {
+  // Click on delete btn
+  if (event.target.className === "close-btn") {
+    removeTaskFromList(taskId);
+    event.preventDefault();
+    return;
+  }
+
+  // Click elsewhere
+  switchTaskState(taskId);
+  // catch click on all container
+  // we do not want the checkbox the update itself
+  event.preventDefault();
 }
 
 /**
@@ -61,7 +97,9 @@ function removeAllCompletedTasks() {
  * @param {"all" | "active" | "completed"} filter 
  * @returns 
  */
-function generateTaskListToDisplay(filter = "all") {
+function generateTaskListToDisplay() {
+  // Retrieve filter radio checkbox value
+  const filter = [...document.getElementsByName("filter")].find((n) => n.checked).value;
   let tasksToDisplay = [];
 
   if (filter === "all") tasksToDisplay = tasks;
@@ -69,6 +107,44 @@ function generateTaskListToDisplay(filter = "all") {
   if (filter === "completed") tasksToDisplay = tasks.filter((t) => t.state === true);
 
   // inset tasks in DOM
+  const listParent = document.querySelector("ul");
+
+  // Clean list before pushing new nodes
+  // TODO : Create a better algorithm to delete et insert only the one needed
+  while (listParent.firstChild) {
+    listParent.removeChild(listParent.firstChild);
+  }
+
+  for (const task of tasksToDisplay) {
+    const listItem = document.createElement("li");
+    listItem.setAttribute("id", task.id);
+    listItem.onclick = (event) => clickEventCatcher(task.id, event);
+
+    const listItemContainer = document.createElement("div");
+
+    // Create state checkbox
+    const listItemCheckbox = document.createElement("input");
+    listItemCheckbox.setAttribute("title", "Task check state");
+    listItemCheckbox.setAttribute("type", "checkbox");
+    if (task.state) listItemCheckbox.setAttribute("checked", "");
+    // Create text for task
+    const listItemName = document.createElement("span");
+    listItemName.textContent = task.text;
+
+    // Creat ethe close button
+    const listItemCloseButton = document.createElement("button");
+    listItemCloseButton.setAttribute("aria-label", "Button to remove a task from todo list")
+    listItemCloseButton.setAttribute("class", "close-btn");
+    listItemCloseButton.setAttribute("type", "button");
+
+    listItemContainer.appendChild(listItemCheckbox);
+    listItemContainer.appendChild(listItemName);
+    listItemContainer.appendChild(listItemCloseButton);
+    listItem.appendChild(listItemContainer);
+
+    listParent.appendChild(listItem);
+  }
   
-  tasksTodoCounter = tasks.length - tasksToDisplay.length;
+  updateLeftItemCounter();
 }
+

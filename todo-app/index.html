@@ -15,19 +15,34 @@
       <input type="checkbox" aria-label="dark/light theme switch" />
     </header>
 
-    <input type="text" aria-label="new task name text input" placeholder="Enter new task"/>
+    <input type="text" aria-label="new task name text input" placeholder="Create a new todo..." onchange="addNewTask(event)"/>
 
     <ul>
-
     </ul>
     <div>
-      <!-- Add dynamic number --> items left
-      All
+      <span id="left-item-counter"></span><!-- Add dynamic number --> items left
+      <!-- All
       Active 
-      Completed
+      Completed -->
+      <fieldset onclick="generateTaskListToDisplay()">
+        <div>
+          <input type="radio" id="all" name="filter" value="all" checked>
+          <label for="all">All</label>
+        </div>
     
-      Clear Completed
-      </div>
+        <div>
+          <input type="radio" id="active" name="filter" value="active">
+          <label for="active">Active</label>
+        </div>
+    
+        <div>
+          <input type="radio" id="completed" name="filter" value="completed">
+          <label for="completed">Completed</label>
+        </div>
+    </fieldset>
+    
+      <button type="button" onclick="removeAllCompletedTasks()">Clear Completed</button>
+    </div>
 
     <p>Drag and drop to reorder list</p>
   </main>
