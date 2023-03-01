@@ -4,44 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
   <link rel="stylesheet" href="./style.css">
+  <link href='https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap' rel='stylesheet'>
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <title>Frontend Mentor | Todo app</title>
 </head>
-<body>
-
+<body class="light">
   <main>
     <header>
       <h1>TODO</h1>
-      <input type="checkbox" aria-label="dark/light theme switch" />
+      <input type="checkbox" aria-label="dark/light theme switch" id="theme-toggle" />
     </header>
 
-    <input type="text" aria-label="new task name text input" placeholder="Create a new todo..." onchange="addNewTask(event)"/>
+    <div id="new-task-input">
+      <!-- <input type="checkbox" /> -->
+      <input type="text" aria-label="new task name text input" placeholder="Create a new todo..." onchange="addNewTask(event)"/>
+    </div>
 
-    <ul>
-    </ul>
-    <div>
-      <span id="left-item-counter"></span><!-- Add dynamic number --> items left
-      <!-- All
-      Active 
-      Completed -->
-      <fieldset onclick="generateTaskListToDisplay()">
-        <div>
-          <input type="radio" id="all" name="filter" value="all" checked>
-          <label for="all">All</label>
-        </div>
-    
-        <div>
-          <input type="radio" id="active" name="filter" value="active">
-          <label for="active">Active</label>
-        </div>
-    
-        <div>
-          <input type="radio" id="completed" name="filter" value="completed">
-          <label for="completed">Completed</label>
-        </div>
-    </fieldset>
-    
-      <button type="button" onclick="removeAllCompletedTasks()">Clear Completed</button>
+    <div class="list-block">
+      <ul class="all">
+      </ul>
+      <div>
+        <span id="left-item-counter"></span><!-- Add dynamic number --> items left
+        <!-- All
+        Active 
+        Completed -->
+        <fieldset onclick="setFilterMode()">
+          <div>
+            <input type="radio" id="all" name="filter" value="all" checked>
+            <label for="all">All</label>
+          </div>
+      
+          <div>
+            <input type="radio" id="active" name="filter" value="active">
+            <label for="active">Active</label>
+          </div>
+      
+          <div>
+            <input type="radio" id="completed" name="filter" value="completed">
+            <label for="completed">Completed</label>
+          </div>
+      </fieldset>
+      
+        <button type="button" onclick="removeAllCompletedTasks()">Clear Completed</button>
+      </div>
     </div>
 
     <p>Drag and drop to reorder list</p>
@@ -51,6 +56,6 @@
 
   
 
-  <script src="./script.js"></script>
+  <script src="./script.js" defer></script>
 </body>
 </html>

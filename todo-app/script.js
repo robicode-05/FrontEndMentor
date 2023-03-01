@@ -2,7 +2,7 @@ const tasks = [];
 
 // some default tasks
 // if state = true => the task has been done, false => task is todo
-tasks.push({id: "default_task_0", state: true, text: "Complete online Javascript course"});
+tasks.push({id: "default_task_0", state: true,  text: "Complete online Javascript course"});
 tasks.push({id: "default_task_1", state: false, text: "Jog around the park 3x"});
 tasks.push({id: "default_task_2", state: false, text: "10 minutes meditations"});
 tasks.push({id: "default_task_3", state: false, text: "Read for 1 hour"});
@@ -91,6 +91,13 @@ function clickEventCatcher(taskId, event) {
   event.preventDefault();
 }
 
+function setFilterMode() {
+  // Retrieve filter radio checkbox value
+  const filter = [...document.getElementsByName("filter")].find((n) => n.checked).value;
+  const listParent = document.querySelector("ul");
+  listParent.className = filter;
+}
+
 /**
  * Generate the task list from a filter +
  * Update tasksTodoCounter
@@ -98,14 +105,6 @@ function clickEventCatcher(taskId, event) {
  * @returns 
  */
 function generateTaskListToDisplay() {
-  // Retrieve filter radio checkbox value
-  const filter = [...document.getElementsByName("filter")].find((n) => n.checked).value;
-  let tasksToDisplay = [];
-
-  if (filter === "all") tasksToDisplay = tasks;
-  if (filter === "active") tasksToDisplay = tasks.filter((t) => t.state === false);
-  if (filter === "completed") tasksToDisplay = tasks.filter((t) => t.state === true);
-
   // inset tasks in DOM
   const listParent = document.querySelector("ul");
 
@@ -115,36 +114,35 @@ function generateTaskListToDisplay() {
     listParent.removeChild(listParent.firstChild);
   }
 
-  for (const task of tasksToDisplay) {
+  for (const task of tasks) {
     const listItem = document.createElement("li");
     listItem.setAttribute("id", task.id);
     listItem.onclick = (event) => clickEventCatcher(task.id, event);
-
-    const listItemContainer = document.createElement("div");
 
     // Create state checkbox
     const listItemCheckbox = document.createElement("input");
     listItemCheckbox.setAttribute("title", "Task check state");
     listItemCheckbox.setAttribute("type", "checkbox");
-    if (task.state) listItemCheckbox.setAttribute("checked", "");
+    if (task.state) { 
+      listItem.className = "completed";
+      listItemCheckbox.setAttribute("checked", "");
+    }
     // Create text for task
     const listItemName = document.createElement("span");
     listItemName.textContent = task.text;
 
-    // Creat ethe close button
+    // Create the close button
     const listItemCloseButton = document.createElement("button");
     listItemCloseButton.setAttribute("aria-label", "Button to remove a task from todo list")
     listItemCloseButton.setAttribute("class", "close-btn");
     listItemCloseButton.setAttribute("type", "button");
 
-    listItemContainer.appendChild(listItemCheckbox);
-    listItemContainer.appendChild(listItemName);
-    listItemContainer.appendChild(listItemCloseButton);
-    listItem.appendChild(listItemContainer);
+    listItem.appendChild(listItemCheckbox);
+    listItem.appendChild(listItemName);
+    listItem.appendChild(listItemCloseButton);
+    // listItem.appendChild(listItemContainer);
 
     listParent.appendChild(listItem);
-  }
-  
+  }  
   updateLeftItemCounter();
 }
-
