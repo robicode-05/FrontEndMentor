@@ -1,0 +1,110 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  /* Primary */
+  --light-cyan: hsl(193, 38%, 86%);
+  --neon-green: hsl(150, 100%, 66%);
+/* Neutral */
+  --grayish-blue: hsl(216, 19%, 38%);
+  --dark-grayish-blue: hsl(219, 19%, 24%);
+  --dark-blue: hsl(218, 23%, 16%);
+
+font-size: 14px;
+font-family: 'Manrope';
+font-display: swap;
+
+/* Font Weights */
+--weight-normal: 800;
+}
+
+body {
+  margin: 0;
+  background-color: var(--dark-blue);
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+}
+
+main {
+  background-color: var(--dark-grayish-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 80%;
+  padding-inline: 24px;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 3px 3px 12px hsl(0deg 0% 15%);
+}
+
+h1 {
+  color: var(--neon-green);
+  font-size: 0.8rem;
+  margin: 0;
+  padding-top: 36px;
+}
+
+p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--light-cyan);
+  font-weight: var(--weight-normal);
+  margin: 0;
+}
+
+.divider {
+  background-image: url("images/pattern-divider-desktop.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  min-height: 12px;
+  width: 100%;
+}
+
+button {  
+  position: relative;
+  transform: translate(0, 50%);
+  border-radius: 50%;
+  width: 40px;
+  aspect-ratio: 1;
+  background-color: var(--neon-green);
+  border: none;
+}
+button:hover {
+  cursor: pointer;
+}
+button::before {
+  position: absolute;
+  content: "";
+  inset: 30%;
+  border-radius: 3px;
+  background-image: url("images/icon-dice.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+button::after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--neon-green);
+  filter: drop-shadow(0 0 15px var(--neon-green));
+  opacity: 0;
+}
+button:hover::after {
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+button .ico {
+  background-image: url("images/icon-dice.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 4px;
+}
