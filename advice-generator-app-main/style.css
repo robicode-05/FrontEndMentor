@@ -40,14 +40,14 @@ main {
 
 h1 {
   color: var(--neon-green);
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin: 0;
   padding-top: 36px;
 }
 
 p {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 2rem;
   color: var(--light-cyan);
   font-weight: var(--weight-normal);
   margin: 0;
@@ -71,6 +71,9 @@ button {
   aspect-ratio: 1;
   background-color: var(--neon-green);
   border: none;
+}
+button:focus-visible {
+  outline: none ;
 }
 button:hover {
   cursor: pointer;
