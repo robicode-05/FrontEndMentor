@@ -57,7 +57,7 @@ p {
   background-image: url("images/pattern-divider-desktop.svg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 
   min-height: 12px;
   width: 100%;
