@@ -121,7 +121,7 @@ function generateTaskListToDisplay() {
 
     // Create state checkbox
     const listItemCheckbox = document.createElement("input");
-    listItemCheckbox.setAttribute("title", "Task check state");
+    listItemCheckbox.setAttribute("title", "Mark task as completed");
     listItemCheckbox.setAttribute("type", "checkbox");
     if (task.state) { 
       listItem.className = "completed";
@@ -140,7 +140,6 @@ function generateTaskListToDisplay() {
     listItem.appendChild(listItemCheckbox);
     listItem.appendChild(listItemName);
     listItem.appendChild(listItemCloseButton);
-    // listItem.appendChild(listItemContainer);
 
     listParent.appendChild(listItem);
   }  

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
   <link rel="stylesheet" href="./style.css">
-  <link href='https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap' rel='stylesheet'>
+  <!-- <link href='https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap' rel='stylesheet'> -->
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <title>Frontend Mentor | Todo app</title>
 </head>
@@ -24,38 +24,27 @@
       <ul class="all">
       </ul>
       <div>
-        <span id="left-item-counter"></span><!-- Add dynamic number --> items left
-        <!-- All
-        Active 
-        Completed -->
+        <span><span id="left-item-counter"></span> items left</span>
         <fieldset onclick="setFilterMode()">
           <div>
             <input type="radio" id="all" name="filter" value="all" checked>
             <label for="all">All</label>
-          </div>
-      
+          </div>      
           <div>
             <input type="radio" id="active" name="filter" value="active">
             <label for="active">Active</label>
-          </div>
-      
+          </div>      
           <div>
             <input type="radio" id="completed" name="filter" value="completed">
             <label for="completed">Completed</label>
           </div>
-      </fieldset>
+        </fieldset>
       
         <button type="button" onclick="removeAllCompletedTasks()">Clear Completed</button>
       </div>
     </div>
-
     <p>Drag and drop to reorder list</p>
   </main>
-
-  
-
-  
-
   <script src="./script.js" defer></script>
 </body>
 </html>
