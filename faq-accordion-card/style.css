@@ -1,0 +1,197 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  /* Primary */
+  --very-dark-desaturated-blue: hsl(238, 29%, 16%); /* -- Text */
+  --soft-red: hsl(14, 88%, 65%); /* -- Text */
+  --soft-violet: hsl(273, 75%, 66%); /* -- Gradient */
+  --soft-blue: hsl(240, 73%, 65%); /* -- Gradient */
+  /* Neutral */
+  --very-dark-grayish-blue: hsl(237, 12%, 33%); /* -- Text */
+  --dark-grayish-blue: hsl(240, 6%, 50%); /* -- Text */
+  --Light-grayish-blue: hsl(240, 5%, 91%); /* -- Divider */
+
+  --font-weight-thin: 400;
+  --font-weight-normal: 700;
+
+  font-size: 12px;
+  font-family: 'Kumbh Sans';
+  font-display: swap;
+
+  overflow: hidden;
+}
+
+body {
+  background-image: linear-gradient(var(--soft-violet), var(--soft-blue));
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+main {
+  width: 80%;
+  max-height: 85vh;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 { text-align: center; }
+
+.illustration {
+  pointer-events: none;
+  position: relative;
+  flex-shrink: 1;
+  height: max(40vmin, 200px);
+  min-height: 150px;
+  background: transparent;
+}
+
+.woman {
+  position: relative;
+  background-image: url(images/illustration-woman-online-mobile.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.woman::after {
+  position: absolute;
+  content: "";
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  height: 40%;
+  width: 100%;
+  z-index: -1;
+  border-radius: 15px 15px 0 0;
+}
+
+.background {
+  position: absolute;
+  inset: 0 0 -35% 0;
+  background-image: url(images/bg-pattern-mobile.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.faq {
+  background: white;
+  padding: 12px 12px 24px 12px;
+  border-radius: 0 0 15px 15px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content { overflow: auto; }
+
+
+abbr { text-decoration: none; }
+abbr:hover { cursor: help; }
+
+details { 
+  position: relative;
+  padding: 12px;
+}
+details::after {
+  content: "";
+  position: absolute;
+  background: var(--Light-grayish-blue);
+  width: calc(100% - 24px);
+  height: 1px;
+  bottom: 0;
+}
+details summary {
+  position: relative;
+  list-style: none;
+  color: var(--very-dark-grayish-blue);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+details summary:hover {
+  color: var(--soft-red);
+  cursor: pointer;
+}
+details summary::after {
+  content: "";
+  background-image: url(images/icon-arrow-down.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 15px;
+  margin-top: 3px;
+  aspect-ratio: 1;
+}
+
+details summary { font-size: 1.1rem; }
+details[open] summary { 
+  color: var(--very-dark-desaturated-blue);
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-normal);
+}
+
+details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+details p {
+  margin-right: 4rem;
+  color: var(--dark-grayish-blue);
+}
+
+@media (min-width: 500px) {
+  main { flex-direction: row; }
+  main > div { flex-basis: 100%; }
+
+  .illustration {
+    width: max(40vmin, 200px);
+    min-width: 150px;
+    height: auto;
+    min-height: auto;
+  }
+
+  .woman {
+    position: relative;
+    background-image: url(images/illustration-woman-online-desktop.svg);
+  }
+
+  .woman::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    content: "";
+    width: 30%;
+    transform: translate(15%, -20%);
+    aspect-ratio: 1;
+    background-image: url(images/illustration-box-desktop.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  .woman::after {
+    left: auto;
+    right: 0;
+    background-color: white;
+    height: 100%;
+    width: 80%;
+    border-radius: 15px 0 0 15px;
+  }
+
+  .background {
+    inset: 0 0 -15% 0;
+    background-image: url(images/bg-pattern-desktop.svg);
+  }
+
+  .faq {
+    max-height: 81vh;
+    border-radius: 0 15px 15px 0;
+  }
+}
