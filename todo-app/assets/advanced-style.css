@@ -71,6 +71,35 @@ header h1 {
   font-size: 3rem;
   letter-spacing: 1rem;
 }
+header input {
+  position: relative;
+  height: fit-content;
+  margin: auto 0;
+  /* Hide default checkbox */
+  height: 0; 
+}
+header input:hover { cursor: pointer; }
+
+header input::before {
+  opacity: 1;
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  aspect-ratio: 1;
+  border: 1px solid var(--divider);
+  border-radius: 50%;
+  background-image: url("../images/icon-moon.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+header input:checked::before {
+  background-image: url("../images/icon-sun.svg");
+}
+
 
 div {
   padding: 6px 12px;
