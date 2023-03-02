@@ -105,6 +105,7 @@ ul li label {
   flex-grow: 1;
   color: var(--text-active);
 }
+ul li label:hover { cursor: pointer; }
 
 ul li:hover button {
   opacity: 1;
