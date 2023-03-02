@@ -58,9 +58,7 @@ body {
   background-size: contain;
 }
 
-main > * {
-  width: 100%;
-}
+main > * { width: 100%; }
 header {
   display: flex;
   justify-content: space-between;
@@ -100,6 +98,31 @@ header input:checked::before {
   background-image: url("../images/icon-sun.svg");
 }
 
+#new-task-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#new-task-input button {
+  margin-left: 5px;
+  width: 25px;
+  height: 25px;
+  background-color: var(--background);
+  border: 1px solid var(--divider);
+  border-radius: 50%;
+}
+#new-task-input input {
+  border: none;
+  padding: 12px 24px;
+  margin: 5px;
+  font-size: 1rem;
+  /* outline: none; */
+}
+#new-task-input input:focus-visible {
+  outline: none;
+  border-bottom: 1px solid var(--divider);
+  background-color: transparent;
+}
 
 div {
   padding: 6px 12px;
@@ -133,7 +156,6 @@ ul li:hover {
 ul li input { display: none;}
 ul li label { 
   position: relative;
-  /* margin-left: max(2vw, 12px); */
   flex-grow: 1;
   color: var(--text-active);
   display: flex;
