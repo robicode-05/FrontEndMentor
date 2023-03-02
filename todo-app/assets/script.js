@@ -109,7 +109,7 @@ function generateTaskListToDisplay() {
   const listParent = document.querySelector("ul");
 
   // Clean list before pushing new nodes
-  // TODO : Create a better algorithm to delete et insert only the one needed
+  // TODO : Create a better algorithm to delete et insert only the ones needed
   while (listParent.firstChild) {
     listParent.removeChild(listParent.firstChild);
   }
@@ -123,12 +123,14 @@ function generateTaskListToDisplay() {
     const listItemCheckbox = document.createElement("input");
     listItemCheckbox.setAttribute("title", "Mark task as completed");
     listItemCheckbox.setAttribute("type", "checkbox");
+    listItemCheckbox.setAttribute("id", `${task.id}_checkbox_input`);
     if (task.state) { 
       listItem.className = "completed";
       listItemCheckbox.setAttribute("checked", "");
     }
     // Create text for task
-    const listItemName = document.createElement("span");
+    const listItemName = document.createElement("label");
+    listItemName.setAttribute("for", `${task.id}_checkbox_input`);
     listItemName.textContent = task.text;
 
     // Create the close button

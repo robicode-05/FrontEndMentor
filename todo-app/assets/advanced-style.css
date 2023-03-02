@@ -39,47 +39,23 @@
   --weight-thick: 700;
 }
 
-/* #theme-toggle[type="checkbox"]:checked ~ main {
-  outline: 5px solid blue;
-
-  --background: blue;
-}
-#theme-toggle[type="checkbox"]:not(:checked) ~ main {
-  outline: 5px solid red;
-
-  --background: red;
-} */
-
 body:not(.dark) {
   /* Themed  */
   --background: var(--light-very-light-gray);
-  --background-image: url("images/bg-desktop-light.jpg");
+  --background-image: url("../images/bg-desktop-light.jpg");
   --divider: var(--light-dark-grayish-blue);
   --shadow: var(--light-light-grayish-blue-shadow);
-  --text-default: var(--light-very-dark-grayish-blue);
+  --text-default: var(--light-dark-grayish-blue);
+  --text-hover: var(--light-very-dark-grayish-blue);
 }
 
 
 body {
-  display: flex;
-  justify-content: center;
-  min-height: 100dvh;
-  margin: 0;
   background-color: var(--background);
   background-image: var(--background-image);
   background-position: top;
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-main  {
-  margin: 24px;
-  margin-top: 4vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-basis: 80%;
-  max-width: 550px;
 }
 
 main > * {
@@ -114,10 +90,6 @@ ul {
   padding: 0;
 }
 
-/* Handle display state wih filter */
-ul.active li.completed { display: none; }
-ul.completed li:not(.completed) { display: none; }
-
 ul li {
   border-bottom: 1px solid var(--divider);
   padding: 24px 12px;  
@@ -128,7 +100,7 @@ ul li {
 ul li:hover {
   cursor: pointer;
 }
-ul li span { 
+ul li label { 
   margin-left: max(2vw, 12px);
   flex-grow: 1;
   color: var(--text-active);
@@ -144,7 +116,7 @@ ul li button {
   aspect-ratio: 1;
   border: none;
   background-color: transparent;
-  background-image: url("images/icon-cross.svg");
+  background-image: url("../images/icon-cross.svg");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -165,28 +137,47 @@ ul + div {
   place-items: center center;
 }
 
+ul + div span {
+  justify-self: start;
+  color: var(--text-default);
+}
+
 ul + div fieldset {
   border: none;
   display: flex;
   flex-direction: row;
 }
 ul + div fieldset div { padding: 0; }
-ul + div fieldset label { padding: 24px 12px; }
+ul + div fieldset label { padding: 24px 12px; color: var(--text-default);}
 ul + div fieldset input {
   display: none;
+}
+ul + div fieldset input:checked + label {
+  color: var(--bright-blue);
 }
 
 ul + div fieldset label:hover {
   cursor: pointer;
-  color: blue;
+  color: var(--text-hover);
 }
 ul + div button {
   margin: 0;
   padding: 0;
   background-color: transparent;
+  justify-self: end;
   border: none;
+  color: var(--text-default);
+  font-size: 1rem;
+  font-weight: var(--weight-thick);
 }
 ul + div button:hover {
   cursor: pointer;
-  color: blue;
+  color: var(--text-hover);
+}
+
+.list-block + p {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-default);
+  padding: 24px;
 }
