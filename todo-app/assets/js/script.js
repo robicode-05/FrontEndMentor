@@ -168,7 +168,6 @@ function generatePositionMap() {
     const position = taskCLientBound.y + (taskCLientBound.height / 2);
     tasksPositions.push({id: task.id, y: position});
   }
-  console.log("generatePositionMap", tasks);
 }
 
 function swap(idA, idB) {
