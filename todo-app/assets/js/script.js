@@ -168,6 +168,7 @@ function generatePositionMap() {
     const position = taskCLientBound.y + (taskCLientBound.height / 2);
     tasksPositions.push({id: task.id, y: position});
   }
+  console.log("generatePositionMap", tasks);
 }
 
 function swap(idA, idB) {
@@ -175,6 +176,7 @@ function swap(idA, idB) {
   const bIndex = tasks.findIndex((t) => t.id == idB);
 
   if (aIndex < 0 || bIndex < 0) return;
+  if (Math.abs(tasks[aIndex].order - tasks[bIndex].order) > 1) return;
 
   const oldAOrder = tasks[aIndex].order;
   tasks[aIndex].order = tasks[bIndex].order;
@@ -210,7 +212,6 @@ const throttledDragEvent = throttle(drag, 16);
  * @param {DragEvent} event 
  */
 function drag(taskId, event) {
-  console.log("drag", taskId);
   const taskCLientBound = document.querySelector(`li#${taskId}`).getClientRects()[0];
   // We detect the change when the cursor reach the half of its neighbour
   const startingPosition = taskCLientBound.y + (taskCLientBound.height / 2);
