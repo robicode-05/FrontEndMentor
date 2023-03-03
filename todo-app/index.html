@@ -8,11 +8,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <title>Frontend Mentor | Todo app</title>
 </head>
-<body class="light">
+<body>
+  <input type="checkbox" aria-label="dark/light theme switch" id="theme-toggle" />
   <main>
+    <div id="theme-container">
+
+    
     <header>
-      <h1>TODO</h1>
-      <input type="checkbox" aria-label="dark/light theme switch" id="theme-toggle" />
+      <h1>Todo</h1>
+      <label for="theme-toggle"></label>
     </header>
 
     <div id="new-task-input">
@@ -44,6 +48,7 @@
       </div>
     </div>
     <p>Drag and drop to reorder list</p>
+  </div>
   </main>
   <script src="./assets/script.js" defer></script>
 </body>

@@ -1,7 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap);
 
-*, *::before, *::after { box-sizing: border-box; }
-
 :root {
   /* Primary */
   --bright-blue: hsl(220, 98%, 61%);
@@ -18,14 +16,14 @@
 
 
   /* - Dark Theme */
-  --dark-very-dark-blue: hsl(235, 21%, 11%);
+  /* --dark-very-dark-blue: hsl(235, 21%, 11%);
   --dark-very-dark-desaturated-blue: hsl(235, 24%, 19%);
   --dark-light-grayish-blue: hsl(234, 39%, 85%);
   --dark-light-grayish-blue-shadow: hsla(234, 39%, 85%, 0.5);
   --dark-light-grayish-blue-hover: hsl(236, 33%, 92%);
-  --dark-dark-grayish-blue: hsl(234, 11%, 52%);
-  --dark-very-dark-grayish-blue: hsl(233, 14%, 35%);
-  --dark-very-dark-grayish-blue: hsl(237, 14%, 26%);
+  --dark-dark-grayish-blue: hsl(234, 11%, 52%); */
+  /* --dark-very-dark-grayish-blue: hsl(233, 14%, 35%); */
+  /* --dark-very-dark-grayish-blue: hsl(237, 14%, 26%); */
 
 
   font-size: 18px;
@@ -39,18 +37,39 @@
   --weight-thick: 700;
 }
 
-body:not(.dark) {
+/* Default: white theme */
+main:not(.dark) {
   /* Themed  */
-  --background: var(--light-very-light-gray);
   --background-image: url("../images/bg-desktop-light.jpg");
+  --theme-switch-image: url("../images/icon-moon.svg");
+
+  --background: var(--light-very-light-gray);
   --divider: var(--light-dark-grayish-blue);
   --shadow: var(--light-light-grayish-blue-shadow);
-  --text-default: var(--light-dark-grayish-blue);
-  --text-hover: var(--light-very-dark-grayish-blue);
+
+
+  --list-text-default: var(--light-very-dark-grayish-blue);
+  --list-text-disabled: var(--light-light-grayish-blue);
+
+  --footer-text-default: var(--light-dark-grayish-blue);
+  --footer-text-selected: var(--bright-blue);
+  --footer-text-hover: var(--light-very-dark-grayish-blue);
+
 }
 
+/* Dark theme */
+#theme-toggle:checked + main {
+  --theme-switch-image: url("../images/icon-sun.svg");
+  --background-image: url("../images/bg-desktop-dark.jpg");
 
-body {
+  /* --background: var(--dark-very-dark-blue);
+  --divider: var(--dark-very-dark-grayish-blue);
+  --shadow: var(--dark-light-grayish-blue-shadow);
+  --text-default: var(--dark-light-grayish-blue);
+  --text-hover: var(--dark-light-grayish-blue-hover); */
+}
+
+main {
   background-color: var(--background);
   background-image: var(--background-image);
   background-position: top;
@@ -58,7 +77,11 @@ body {
   background-size: contain;
 }
 
-main > * { width: 100%; }
+/* body:has(#theme-toggle:checked) {
+  background-color: red;
+} */
+
+#theme-container > * { width: 100%; }
 header {
   display: flex;
   justify-content: space-between;
@@ -68,40 +91,48 @@ header h1 {
   color: var(--background);
   font-size: 3rem;
   letter-spacing: 1rem;
+  text-transform: uppercase;
+  color: var(--light-very-light-gray);
 }
-header input {
+
+
+header label {
   position: relative;
   height: fit-content;
   margin: auto 0;
+  border: none;
   /* Hide default checkbox */
   height: 0; 
+  appearance: initial;
 }
-header input:hover { cursor: pointer; }
+header label:hover { cursor: pointer; }
 
-header input::before {
+header label::before {
   opacity: 1;
   position: absolute;
+  border: none;
   content: "";
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 35px;
   aspect-ratio: 1;
-  border: 1px solid var(--divider);
   border-radius: 50%;
-  background-image: url("../images/icon-moon.svg");
+  background-image: var(--theme-switch-image);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
-header input:checked::before {
-  background-image: url("../images/icon-sun.svg");
+header label:checked::before {
+  background-image: var(--theme-switch-image);
 }
 
 #new-task-input {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 6px 12px;
+  border-radius: var(--radius);
 }
 #new-task-input button {
   margin-left: 5px;
@@ -116,7 +147,7 @@ header input:checked::before {
   padding: 12px 24px;
   margin: 5px;
   font-size: 1rem;
-  /* outline: none; */
+  background: transparent;
 }
 #new-task-input input:focus-visible {
   outline: none;
@@ -124,8 +155,7 @@ header input:checked::before {
   background-color: transparent;
 }
 
-div {
-  padding: 6px 12px;
+#theme-container div {
   background-color: var(--background);
 }
 
@@ -157,7 +187,7 @@ ul li input { display: none;}
 ul li label { 
   position: relative;
   flex-grow: 1;
-  color: var(--text-active);
+  color: var(--list-text-default);
   display: flex;
   align-items: center;
 }
@@ -168,8 +198,12 @@ ul li label::before {
     width: 25px;
     aspect-ratio: 1;
     background-color: var(--background);
-    border: 1px solid var(--divider);
+    border: 1px solid var(--list-text-disabled);
     border-radius: 50%;
+}
+ul li input:checked + label {
+  color: var(--list-text-disabled);
+  text-decoration: line-through;
 }
 ul li input:checked + label::before {
   background-image: var(--check-background);
@@ -193,6 +227,16 @@ ul li label:hover { cursor: pointer; }
 
 ul li:hover button {
   opacity: 1;
+}
+ul li:hover input:not(:checked) + label::before {
+  /* TODO: use linear gradient on the border */
+
+  /* border-width: 4px;
+  border-radius: 50%;
+  border-style: solid;
+  border-image: var(--check-background); */
+
+  border: 1px solid var(--list-text-default);
 }
 ul li button {
   opacity: 0;
@@ -226,11 +270,13 @@ ul + div {
   display: grid;
   grid-template-columns:  repeat(auto-fit, minmax(min(50px, 100%), 1fr));
   place-items: center center;
+  padding: 1rem 2rem;
+  color: red;  color: var(--footer-text-default);
+
 }
 
 ul + div span {
   justify-self: start;
-  color: var(--text-default);
 }
 
 ul + div fieldset {
@@ -244,12 +290,12 @@ ul + div fieldset input {
   display: none;
 }
 ul + div fieldset input:checked + label {
-  color: var(--bright-blue);
+  color: var(--footer-text-selected);
 }
 
 ul + div fieldset label:hover {
   cursor: pointer;
-  color: var(--text-hover);
+  color: var(--footer-text-hover);
 }
 ul + div button {
   margin: 0;
@@ -257,18 +303,17 @@ ul + div button {
   background-color: transparent;
   justify-self: end;
   border: none;
-  color: var(--text-default);
-  font-size: 1rem;
-  font-weight: var(--weight-thick);
+  color: var(--footer-text-default);
+  font-size: 0.9rem;
 }
 ul + div button:hover {
   cursor: pointer;
-  color: var(--text-hover);
+  color: var(--footer-text-hover);
 }
 
 .list-block + p {
   text-align: center;
   font-size: 0.9rem;
-  color: var(--text-default);
+  color: var(--footer-text-default);
   padding: 24px;
 }
