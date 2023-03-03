@@ -16,12 +16,12 @@
 
 
   /* - Dark Theme */
-  /* --dark-very-dark-blue: hsl(235, 21%, 11%);
+  --dark-very-dark-blue: hsl(235, 21%, 11%);
   --dark-very-dark-desaturated-blue: hsl(235, 24%, 19%);
   --dark-light-grayish-blue: hsl(234, 39%, 85%);
   --dark-light-grayish-blue-shadow: hsla(234, 39%, 85%, 0.5);
   --dark-light-grayish-blue-hover: hsl(236, 33%, 92%);
-  --dark-dark-grayish-blue: hsl(234, 11%, 52%); */
+  --dark-dark-grayish-blue: hsl(234, 11%, 52%);
   /* --dark-very-dark-grayish-blue: hsl(233, 14%, 35%); */
   /* --dark-very-dark-grayish-blue: hsl(237, 14%, 26%); */
 
@@ -30,7 +30,7 @@
   font-family: 'Josefin Sans';
   font-display: swap;
 
-  --radius: 4px;
+  --radius: 8px;
 
   /* Font Weights */
   --weight-normal: 400;
@@ -47,7 +47,6 @@ main:not(.dark) {
   --divider: var(--light-dark-grayish-blue);
   --shadow: var(--light-light-grayish-blue-shadow);
 
-
   --list-text-default: var(--light-very-dark-grayish-blue);
   --list-text-disabled: var(--light-light-grayish-blue);
 
@@ -62,11 +61,16 @@ main:not(.dark) {
   --theme-switch-image: url("../images/icon-sun.svg");
   --background-image: url("../images/bg-desktop-dark.jpg");
 
-  /* --background: var(--dark-very-dark-blue);
-  --divider: var(--dark-very-dark-grayish-blue);
-  --shadow: var(--dark-light-grayish-blue-shadow);
-  --text-default: var(--dark-light-grayish-blue);
-  --text-hover: var(--dark-light-grayish-blue-hover); */
+  --background: var(--dark-very-dark-desaturated-blue);
+   --divider: var(--dark-light-grayish-blue-shadow);
+  --shadow: var(--dark-very-dark-blue);
+
+  --list-text-default: var(--dark-light-grayish-blue-hover);
+  --list-text-disabled: var(--dark-dark-grayish-blue);
+
+  --footer-text-default: var(--dark-dark-grayish-blue);
+  --footer-text-selected: var(--bright-blue);
+  --footer-text-hover: var(--dark-light-grayish-blue-hover);
 }
 
 main {
@@ -77,9 +81,6 @@ main {
   background-size: contain;
 }
 
-/* body:has(#theme-toggle:checked) {
-  background-color: red;
-} */
 
 #theme-container > * { width: 100%; }
 header {
@@ -271,8 +272,9 @@ ul + div {
   grid-template-columns:  repeat(auto-fit, minmax(min(50px, 100%), 1fr));
   place-items: center center;
   padding: 1rem 2rem;
-  color: red;  color: var(--footer-text-default);
-
+  color: var(--footer-text-default);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
 }
 
 ul + div span {
