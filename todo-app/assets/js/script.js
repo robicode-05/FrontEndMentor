@@ -120,7 +120,7 @@ function generateTaskListToDisplay() {
     listItem.setAttribute("id", task.id);
     listItem.onclick = (event) => clickEventCatcher(task.id, event);
     listItem.draggable = true;
-    listItem.ondrag = (event) => drag(task.id, event);
+    listItem.ondrag = (event) => throttledDragEvent(task.id, event);
 
     // Create state checkbox
     const listItemCheckbox = document.createElement("input");
@@ -182,11 +182,35 @@ function swap(idA, idB) {
 }
 
 /**
+ * Throttle  
+ * @param {Function} func 
+ * @param {number} duration 
+ * @returns 
+ */
+function throttle(func, duration = 300) {
+  let shouldWait = false
+
+  return function (...args) {
+    if (!shouldWait) {
+      func.apply(this, args)
+      shouldWait = true
+
+      setTimeout(function () {
+        shouldWait = false
+      }, duration)
+    }
+  }
+}
+
+const throttledDragEvent = throttle(drag, 16);
+
+/**
  * 
  * @param {string} taskId 
  * @param {DragEvent} event 
  */
 function drag(taskId, event) {
+  console.log("drag", taskId);
   const taskCLientBound = document.querySelector(`li#${taskId}`).getClientRects()[0];
   // We detect the change when the cursor reach the half of its neighbour
   const startingPosition = taskCLientBound.y + (taskCLientBound.height / 2);
