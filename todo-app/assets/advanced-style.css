@@ -143,6 +143,22 @@ header label:checked::before {
   background-color: var(--background);
   border: 1px solid var(--divider);
   border-radius: 50%;
+  color: white;
+}
+#new-task-input button:hover {
+  position: relative;
+  background-image: var(--check-background);
+}
+#new-task-input button:hover::before {
+  position: absolute;
+  inset: 0;
+  content: "+";
+  font-size: 1.2rem;
+  border-radius: 50%;
+  color: var(--text-default)
+}
+#new-task-input input::placeholder {
+  color: var(--footer-text-default);
 }
 #new-task-input input {
   border: none;
