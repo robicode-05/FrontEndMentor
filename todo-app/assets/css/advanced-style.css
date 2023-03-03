@@ -281,9 +281,9 @@ ul li:first-child div { border-radius: var(--radius) var(--radius) 0 0; }
 fieldset { padding: 0; }
 ul + div {
   display: grid;
-  grid-template-columns:  repeat(auto-fit, minmax(min(50px, 100%), 1fr));
+  grid-template-columns:  .7fr 1fr .7fr;
   place-items: center center;
-  padding: 1rem 2rem;
+  padding: 1rem 2vw;
   color: var(--footer-text-default);
   border-bottom-left-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
@@ -299,7 +299,7 @@ ul + div fieldset {
   flex-direction: row;
 }
 ul + div fieldset div { padding: 0; }
-ul + div fieldset label { padding: 24px 12px; color: var(--text-default);}
+ul + div fieldset label { padding-inline: 5px; color: var(--text-default);}
 ul + div fieldset input {
   display: none;
 }
@@ -330,4 +330,29 @@ ul + div button:hover {
   font-size: 0.9rem;
   color: var(--footer-text-default);
   padding: 24px;
+}
+
+@media (max-width: 600px) {
+  ul + div {
+    grid-template-columns:  1fr 1fr;
+    place-items: start center;
+    position: relative;
+  }
+  ul + div span { grid-column: 1;}
+  ul + div button { grid-column: 2;}
+  ul + div fieldset {
+    position: absolute;
+    inset: 0;
+    background-color: var(--background);
+    transform: translateY(125%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-inline: 15%;
+    border-radius: var(--radius);
+    box-shadow: 10px 15px 25px var(--shadow);
+  }
+  ul + div fieldset > div { padding-block: 12px; }
+
+  .list-block + p { margin-top: 4rem;}
 }
