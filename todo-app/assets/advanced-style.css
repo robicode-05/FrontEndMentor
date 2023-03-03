@@ -78,7 +78,8 @@ main {
   background-image: var(--background-image);
   background-position: top;
   background-repeat: no-repeat;
-  background-size: contain;
+  /* background-size: contain; */
+  background-size: max(1440px, 100%) 300px;
 }
 
 
@@ -149,6 +150,7 @@ header label:checked::before {
   margin: 5px;
   font-size: 1rem;
   background: transparent;
+  color: var(--list-text-default);
 }
 #new-task-input input:focus-visible {
   outline: none;
