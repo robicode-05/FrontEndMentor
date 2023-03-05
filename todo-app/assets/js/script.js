@@ -120,6 +120,8 @@ function generateTaskListToDisplay() {
     listItem.setAttribute("id", task.id);
     listItem.onclick = (event) => clickEventCatcher(task.id, event);
     listItem.draggable = true;
+    listItem.ondragstart = dragstart_handler;
+    listItem.ondragover = dragover_handler;
     listItem.ondrag = (event) => throttledDragEvent(task.id, event);
 
     // Create state checkbox
@@ -204,6 +206,19 @@ function throttle(func, duration = 300) {
 }
 
 const throttledDragEvent = throttle(drag, 16);
+
+/**
+ * 
+ * @param {DragEvent} event 
+ */
+function dragstart_handler(event) {
+  event.dataTransfer.dropEffect = "move";
+}
+
+function dragover_handler(ev) {
+  ev.preventDefault();
+  ev.dataTransfer.dropEffect = "move";
+}
 
 /**
  * 
