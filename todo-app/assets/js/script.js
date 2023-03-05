@@ -120,7 +120,13 @@ function generateTaskListToDisplay() {
     listItem.setAttribute("id", task.id);
     listItem.onclick = (event) => clickEventCatcher(task.id, event);
     listItem.draggable = true;
-    listItem.ondrag = (event) => throttledDragEvent(task.id, event);
+    // listItem.ondrag = (event) => throttledDragEvent(task.id, event);
+    listItem.ondragstart = dragstart_handler;
+    listItem.ondrag = drag_handler;
+    listItem.ondrop = drop_handler;
+    listItem.ondragover = dragover_handler;
+    listItem.ondragleave = dragleave_handler;
+    listItem.ondragend = dragend_handler;
 
     // Create state checkbox
     const listItemCheckbox = document.createElement("input");
@@ -203,8 +209,6 @@ function throttle(func, duration = 300) {
   }
 }
 
-const throttledDragEvent = throttle(drag, 16);
-
 /**
  * 
  * @param {string} taskId 
@@ -231,4 +235,66 @@ function drag(taskId, event) {
     generatePositionMap();
     generateTaskListToDisplay();
   }
+}
+
+/**
+ * handle drag animation
+ * @param {DragEvent} event 
+ */
+function drag_handler(event) {
+  const startingPosition = tasksPositions.find((t)=> t.id === event.target.id)?.y ?? 0;
+  const currentPosition = event.y;
+  const delta = startingPosition - currentPosition;
+
+  if (currentPosition < (tasksPositions[0]?.y ?? 0) ||
+   currentPosition > (tasksPositions[tasksPositions.length - 1]?.y ?? 0)) return;
+
+  // document.querySelector(`#${event.target.id}`).style = `transform: translate(0px, ${delta * -1}px);`;
+}
+
+/**
+ * Create drag animation
+ * @param {string} taskId 
+ * @param {DragEvent} event 
+ */
+function dragstart_handler(event) {
+  // Add the target element's id to the data transfer object
+  document.querySelector(`#${event.target.id}`).classList.add("drag");
+  event.dataTransfer.setData("text/plain", event.target.id);
+  event.dataTransfer.dropEffect = "move";
+}
+
+/**
+ * end drag animation
+ * @param {string} taskId 
+ * @param {DragEvent} event 
+ */
+function dragend_handler(event) {
+  document.querySelector(`#${event.target.id}`).classList.remove("drag");
+  document.querySelector(`#${event.target.id}`).style = `transform: none;`;
+}
+
+function dragover_handler(event) {
+  event.preventDefault();
+  const liId = event.target.id;
+  if (liId === undefined  || liId === "") return;
+
+  document.querySelector(`#${liId}`).classList.add("target");
+  // event.dataTransfer.dropEffect = "move";
+}
+
+function dragleave_handler(event) {
+  const liId = event.target.id;
+  console.log("dragleave_handler", liId);
+  if (liId === undefined) return;
+  document.querySelector(`#${liId}`).classList.add("target");
+}
+
+
+function drop_handler(event) {
+  event.preventDefault();
+  // Get the id of the target and add the moved element to the target's DOM
+  const data = event.dataTransfer.getData("text/plain");
+  console.log("drop id", data);
+  // ev.target.appendChild(document.getElementById(data));
 }
