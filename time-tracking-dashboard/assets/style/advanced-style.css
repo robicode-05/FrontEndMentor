@@ -5,6 +5,16 @@ html {
   font-family: 'Josefin Sans';
 }
 
+section.user header img {
+  margin: 0.8rem;
+  margin-bottom: 1.6rem;
+  filter: 
+  drop-shadow(0px 0px 1px white)
+   drop-shadow(0px 0px 1px white)
+   drop-shadow(0px 0px 1px white)
+   drop-shadow(0px 0px 1px white);
+}
+
 .summary section:nth-child(1) {
   background-image: url("../images/icon-work.svg");
   background-repeat: no-repeat;
@@ -40,4 +50,23 @@ html {
   background-repeat: no-repeat;
   background-position: 90% top;
   background-size: 25%;
+}
+
+.summary section:hover > * {
+  background-color: var(--desaturated-blue);
+  cursor: pointer;
+}
+
+.summary section button {
+  width: 15px;
+  aspect-ratio: 1;
+  border: none;
+  background-color: transparent;
+  background-image: url("../images/icon-ellipsis.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.summary section button:hover { 
+  cursor: pointer;
 }
