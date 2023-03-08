@@ -1,0 +1,165 @@
+/* 
+* Full css switcher 
+*
+* To achieve this, we lever the new :has selector 
+* by hiddding every thing not related to the current selected radio button
+*/
+
+main:has(input#daily:checked) section .duration > span:not(.daily) { display: none;}
+main:has(input#weekly:checked) section .duration > span:not(.weekly) { display: none; }
+main:has(input#monthly:checked) section .duration > span:not(.monthly) { display: none; }
+
+/*  RESET  */
+img { max-width: 100%; object-fit: contain; }
+* { box-sizing: border-box; }
+body, main { margin: 0; }
+fieldset { border: none; }
+
+/* Main  */
+
+:root {
+  /* Primary */
+  --blue: hsl(246, 80%, 60%);
+
+  --light-red-work: hsl(15, 100%, 70%);
+  --soft-blue-play: hsl(195, 74%, 62%);
+  --light-red-study: hsl(348, 100%, 68%);
+  --lime-green-exercise: hsl(145, 58%, 55%);
+  --violet-social: hsl(264, 64%, 52%);
+  --soft-orange-self-care: hsl(43, 84%, 65%);
+
+  /* Neutral */
+  --very-dark-blue: hsl(226, 43%, 10%);
+  --dark-blue: hsl(235, 46%, 20%);
+  --desaturated-blue: hsl(235, 45%, 61%);
+  --pale-blue: hsl(236, 100%, 87%);
+
+  --font-weight-thin: 300;
+  --font-weight-default: 400;
+  --font-weight-thick: 500;
+
+  --radius: 15px;
+}
+
+html {
+  font-size: 18px;
+  color: white;
+  font-weight: var(--font-weight-default);
+}
+
+body {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background-color: var(--very-dark-blue);
+}
+
+main {
+  width: 80%;
+  display: grid;
+  place-items: center;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  
+  main { grid-template-columns: none; grid-template-rows: auto 1fr;}
+}
+
+@media (min-width: 600px) {
+  .summary { grid-auto-flow: column; }
+  .summary > section:nth-child(3n + 1) { grid-column: 1; }
+  .summary > section:nth-child(3n + 2) { grid-column: 2; }
+  .summary > section:nth-child(3n + 3) { grid-column: 3; } 
+}
+
+
+.summary {
+  display: grid;
+  gap: 15px;
+  width: 100%;
+  height: 100%;
+  /* grid-auto-flow: column; */
+   /* https://stackoverflow.com/a/55290215 */
+  /* grid-template-columns: repeat(4, minmax(10em, 1fr)); */
+}
+
+section {
+  height: 100%;
+  min-height: 150px;
+  width: 100%;
+  min-width: 175px;
+  background-color: var(--dark-blue);
+  border-radius: var(--radius);
+  margin-bottom: -2px;
+}
+.summary section > * {
+  padding: 0.8rem;
+  background-color: var(--dark-blue);
+}
+section.user {
+  padding: 0;
+  background-color: var(--dark-blue);
+}
+
+.summary section:nth-child(1) { background-color: var(--light-red-work); }
+.summary section:nth-child(2) { background-color: var( --soft-blue-play); }
+.summary section:nth-child(3) { background-color: var(--light-red-study); }
+.summary section:nth-child(4) { background-color: var(--lime-green-exercise); }
+.summary section:nth-child(5) { background-color: var(--violet-social); }
+.summary section:nth-child(6) { background-color: var(--soft-orange-self-care); }
+
+.summary section header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+section.user header {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--blue);
+  border-radius: var(--radius);
+  padding: 0.8rem;
+}
+section.user header img {
+  margin: 0.8rem;
+  margin-bottom: 1.6rem;
+  filter: 
+  drop-shadow(0px 0px 1px white)
+   drop-shadow(0px 0px 1px white)
+   drop-shadow(0px 0px 1px white)
+   drop-shadow(0px 0px 1px white);
+}
+section.user header h1,section.user header h2 {
+  font-weight: var(--font-weight-thin);
+  margin: 0;
+}
+.summary section h2 {
+  font-size: .8rem;
+  font-weight: var(--font-weight-thin);
+}
+
+/* .summary section::before {
+  content: "";
+  display: block;
+  background-color: red;
+  height: 20%;
+  width: 100%;
+  display: block;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+} */
+
+.duration {
+  display: flex;
+  flex-direction: column;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+.duration .current { font-size: 2rem; }
+.duration .previous { font-size: 0.7rem; font-weight: var(--font-weight-thin);}

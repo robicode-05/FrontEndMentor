@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="./assets/style/minimal-style.css">  
+  <link rel="preload" href="./assets/style/advanced-style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./assets/style/advanced-style.css"></noscript>
+
+  <title>Frontend Mentor | Time tracking dashboard</title>
+</head>
+<body>
+  <main>
+
+    <section class="user" aria-label="user-section" >
+      <header>
+        <img src="./assets/images/image-jeremy.png" width="75" height="75" alt="picture of Jeremy Robson" >
+        <h1>Report for</h1>
+        <h2>
+          <span>Jeremy</span>
+          <span>Robson</span>
+        </h2>
+      </header>
+    
+      <fieldset>
+        <input type="radio" id="daily" name="filter" value="daily">
+        <label for="daily">Daily</label>
+        <input type="radio" id="weekly" name="filter" value="weekly" checked>
+        <label for="weekly">Weekly</label>
+        <input type="radio" id="monthly" name="filter" value="monthly">
+        <label for="monthly">Monthly</label>
+      </fieldset>
+    </section>
+
+    <div class="summary">
+    <section aria-labelledby="section-label-work">
+      <header>
+        <h2 id="section-label-work">Work</h2>
+        <button aria-label="more option"></button>
+      </header>
+      <div class="duration">
+        <span class="daily current">5hrs</span> 
+        <span class="daily previous">Last day - 7hrs</span> 
+        <span class="weekly current">32hrs</span> 
+        <span class="weekly previous">Last week - 36hrs</span> 
+        <span class="monthly current">103hrs</span> 
+        <span class="monthly previous">Last month - 128hrs</span> 
+      </div>
+    </section>
+
+    <section aria-labelledby="section-label-play">
+      <header>
+        <h2 id="section-label-play">Play</h2>
+        <button aria-label="more option"></button>
+      </header>
+      <div class="duration">
+        <span class="daily current">1hr</span> 
+        <span class="daily previous">Last day - 2hrs</span> 
+        <span class="weekly current">10hrs</span> 
+        <span class="weekly previous">Last week - 8hrs</span> 
+        <span class="monthly current">23hrs</span> 
+        <span class="monthly previous">Last month - 29hrs</span> 
+      </div>
+    </section>
+
+    <section aria-labelledby="section-label-study">
+      <header>
+        <h2 id="section-label-study">Study</h2>
+        <button aria-label="more option"></button>
+      </header>
+      <div class="duration">
+        <span class="daily current">0hrs</span> 
+        <span class="daily previous">Last day - 1hr</span> 
+        <span class="weekly current">4hrs</span> 
+        <span class="weekly previous">Last week - 7hrs</span> 
+        <span class="monthly current">13hrs</span> 
+        <span class="monthly previous">Last month - 19hrs</span> 
+      </div>
+    </section>
+
+    <section aria-labelledby="section-label-exercise">
+      <header>
+        <h2 id="section-label-exercise">Exercise</h2>
+        <button aria-label="more option"></button>
+      </header>
+      <div class="duration">
+        <span class="daily current">1hr</span> 
+        <span class="daily previous">Last day - 1hr</span> 
+        <span class="weekly current">4hrs</span> 
+        <span class="weekly previous">Last week - 5hrs</span> 
+        <span class="monthly current">11hrs</span> 
+        <span class="monthly previous">Last month - 18hrs</span> 
+      </div>
+    </section>
+
+    <section aria-labelledby="section-label-social">
+      <header>
+        <h2 id="section-label-social">Social</h2>
+        <button aria-label="more option"></button>
+      </header>
+      <div class="duration">
+        <span class="daily current">1hr</span> 
+        <span class="daily previous">Last day - 3hrs</span> 
+        <span class="weekly current">5hrs</span> 
+        <span class="weekly previous">Last week - 10hrs</span> 
+        <span class="monthly current">21hrs</span> 
+        <span class="monthly previous">Last month - 23hrs</span> 
+      </div>
+    </section>
+
+    <section aria-labelledby="section-label-self-care">
+      <header>
+        <h2 id="section-label-self-care">Self Care</h2>
+        <button aria-label="more option"></button>
+      </header>
+      <div class="duration">
+        <span class="daily current">0hrs</span> 
+        <span class="daily previous">Last day - 1hr</span> 
+        <span class="weekly current">2hrs</span> 
+        <span class="weekly previous">Last week - 2hrs</span> 
+        <span class="monthly current">7hrs</span> 
+        <span class="monthly previous">Last month - 11hrs</span> 
+      </div>
+    </section>
+  </div>
+  </main>
+</body>
+</html>
