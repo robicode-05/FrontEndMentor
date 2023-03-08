@@ -87,6 +87,7 @@ section.user {
   padding: 0;
   background-color: var(--dark-blue);
   height: fit-content;
+  min-width: 200px;
 }
 
 .summary section:nth-child(1) { background-color: var(--light-red-work); }
