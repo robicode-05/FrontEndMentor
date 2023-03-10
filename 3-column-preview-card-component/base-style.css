@@ -15,6 +15,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--very-light-gray);
 }
 
 main {
@@ -24,6 +25,9 @@ main {
   border-radius: 8px;
   flex-wrap: wrap;
 }
+
+/* H1 in thi spage is for accessibility */
+h1 { display: none;}
 
 section {
   padding: 3rem;
