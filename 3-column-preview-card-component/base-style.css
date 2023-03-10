@@ -18,19 +18,17 @@ body {
 }
 
 main {
-  background-color: red;
   display: flex;
-  margin-inline: 18vw;
-  margin-top: 40px;
+  justify-content: center;
   flex-direction: row;
   border-radius: 8px;
-  /* min-height: 30rem; */
+  flex-wrap: wrap;
 }
 
 section {
   padding: 3rem;
   display: flex;
-  min-width: 307px;
+  width: 307px;
   flex-direction: column;
   height: 500px;
 }
@@ -78,9 +76,9 @@ section button {
   border: 1px solid var(--very-light-gray);
 }
 section button:hover {
-  padding-block: 0.7rem;
   cursor: pointer;
   background-color: transparent;
   color: var(--very-light-gray);
+  margin: -2px;
   border-width: 3px;
 }
