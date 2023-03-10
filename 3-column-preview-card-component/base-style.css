@@ -41,12 +41,11 @@ section:nth-child(2) button { color: var(--dark-cyan); }
 section:nth-child(3) { background-color: var(--very-dark-cyan);}
 section:nth-child(3) button { color: var(--very-dark-cyan); }
 
+img {
+  margin-bottom: 2rem;
+}
+
 h2 {
-   /* Debug */
-   display: none;
-   
-  /* margin-top: 35%; */
-  /* margin-bottom: 5%; */
   color: var(--very-light-gray);
   font-family: "Big Shoulders Display";
   font-weight: 700;
