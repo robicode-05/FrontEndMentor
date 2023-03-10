@@ -26,8 +26,6 @@ main {
   flex-wrap: wrap;
 }
 
-/* H1 in thi spage is for accessibility */
-h1 { display: none;}
 
 section {
   padding: 3rem;
@@ -47,7 +45,7 @@ img {
   margin-bottom: 2rem;
 }
 
-h2 {
+h1 {
   color: var(--very-light-gray);
   font-family: "Big Shoulders Display";
   font-weight: 700;
