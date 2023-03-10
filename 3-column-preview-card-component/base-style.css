@@ -60,20 +60,27 @@ p {
   font-weight: 400;
   padding-block: 1rem;
   flex-grow: 1;
-  line-height: 1.7em;
+  line-height: 1.6em;
+  margin-top: 6px;
+  font-size: 1rem;
 }
 
-button {
-   /* Debug */
-   display: none;
-
-  /* margin-block: 0.6rem 1rem; */
-  padding: 1rem;
-  /* border-radius: 30px; */
+section button {
+  padding-block: 0.8rem;
+  padding-inline: 2rem;
+  border-radius: 30px;
+  text-transform: capitalize;
   width: fit-content;
   font-family: "Lexend Deca";
   font-weight: 400;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   background-color: var(--very-light-gray);
   border: 1px solid var(--very-light-gray);
+}
+section button:hover {
+  padding-block: 0.7rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--very-light-gray);
+  border-width: 3px;
 }
