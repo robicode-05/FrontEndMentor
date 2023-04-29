@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/style/minimal-style.css">  
+  <link rel="preload" href="./assets/style/advanced-style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Pricing component</title>
+</head>
+<body>
+  <main>
+    <h1>Our Pricing</h1>
+    <input aria-label="subscription selector" id="selector" type="checkbox" checked/>
+    <div class="preview">
+      <section aria-labelledby="basic">
+        <h2 id="basic">Basic</h2>
+        <h3>
+          <div class="monthly">
+            <span class="currency">&dollar;</span>
+            <span class="price">19.99</span>
+          </div>
+          <div class="annually">
+            <span class="currency">&dollar;</span>
+            <span class="price">199.99</span>
+          </div>
+        </h3>
+        <div class="details">
+          <span>500 GB Storage</span>
+          <span>2 Users Allowed</span>
+          <span>Send up to 3 GB</span>
+        </div>
+        <button>Learn More</button>
+      </section>
+
+      <section aria-labelledby="pro">
+        <h2 id="pro">Professional</h2>
+        <h3>
+          <div class="monthly">
+            <span class="currency">&dollar;</span>
+            <span class="price">24.99</span>
+          </div>
+          <div class="annually">
+            <span class="currency">&dollar;</span>
+            <span class="price">249.99</span>
+          </div>
+        </h3>
+        <div class="details">
+          <span>1 TB Storage</span>
+          <span>5 Users Allowed</span>
+          <span>Send up to 10 GB</span>
+        </div>
+        <button>Learn More</button>
+      </section>
+
+      <section aria-labelledby="master">
+        <h2 id="master">Master</h2>
+        <h3>
+          <div class="monthly">
+            <span class="currency">&dollar;</span>
+            <span class="price">39.99</span>
+          </div>
+          <div class="annually">
+            <span class="currency">&dollar;</span>
+            <span class="price">399.99</span>
+          </div>
+        </h3>
+        <div class="details">
+          <span>2 TB Storage</span>
+          <span>10 Users Allowed</span>
+          <span>Send up to 20 GB</span>
+        </div>
+        <button>Learn More</button>
+      </section>
+    </div>
+  </main> 
+</body>
+</html>

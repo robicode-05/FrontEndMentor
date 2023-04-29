@@ -1,0 +1,33 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);
+
+
+html {
+  font-family: 'Montserrat';
+}
+
+body {
+  background-color: var(--very-light-grayish-blue);
+  background-image: url("../img/bg-top.svg"), url("../img/bg-bottom.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: top right, bottom left;
+  background-size: 50vh, 40vh;
+}
+
+
+section:nth-child(1),
+section:nth-child(3) {
+  background-color: white;
+  color: var(--dark-grayish-blue);
+}
+
+section:nth-child(1) button,
+section:nth-child(3) button, 
+section:nth-child(2) {
+  color: white;
+  background: linear-gradient(90deg, hsl(236, 72%, 79%), hsl(237, 63%, 64%));
+}
+
+section:nth-child(2) button {
+  background-color: white;
+  color: var(--grayish-blue);
+}
