@@ -24,10 +24,67 @@ section:nth-child(1) button,
 section:nth-child(3) button, 
 section:nth-child(2) {
   color: white;
-  background: linear-gradient(90deg, hsl(236, 72%, 79%), hsl(237, 63%, 64%));
+  background-image: linear-gradient(90deg, hsl(236, 72%, 79%), hsl(237, 63%, 64%));
 }
 
 section:nth-child(2) button {
+  color: hsl(237, 63%, 64%);
+}
+
+section:nth-child(1) button:hover,
+section:nth-child(3) button:hover {
+  outline: 1px solid hsl(237, 63%, 64%);
+  color: hsl(237, 63%, 64%);
+  background-color: transparent;
+  background-image: none;
+}
+section:nth-child(2) button:hover {
+  outline: 1px solid white;
+  color: white;
+  background-color: transparent;
+  background-image: none;
+}
+section button:hover span {
+  background-color: transparent;
+}
+
+#selector {
+  position: relative;
+  transform: translateY(-2.3rem);
+}
+#selector:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+#selector::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  background-image: linear-gradient(90deg, hsl(236, 72%, 79%), hsl(237, 63%, 64%));
+  border-radius: 3rem;
+  width: 50px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+}
+
+#selector::after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 0%;
+  transform: translateY(-50%);
   background-color: white;
-  color: var(--grayish-blue);
+  height: 20px;
+  aspect-ratio: 1;
+  border-radius: 100%;  
+}
+
+#selector:checked::after {
+  transform: translate(7px, -50%);
+}
+
+#selector:not(:checked)::after {
+  transform: translate(-15px, -50%);
 }
