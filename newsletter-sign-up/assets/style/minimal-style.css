@@ -1,0 +1,121 @@
+
+/*  RESET  */
+img { max-width: 100%; object-fit: contain; }
+* { box-sizing: border-box; }
+body, main { margin: 0; }
+fieldset { border: none; }
+
+:root {
+  /* Primary */
+  --tomato: hsl(4, 100%, 67%);
+  --light-tomato: hsla(4, 75%, 78%, 0.26);
+  --orange: hsl(23, 100%, 64%);
+
+  /* Neutral */
+  --dark-slate-grey: hsl(234, 29%, 20%);
+  --charcoal-grey: hsl(235, 18%, 26%);
+  --grey: hsl(231, 7%, 60%);
+  --white: hsl(0, 0%, 100%);
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--charcoal-grey);
+  display: grid;
+  place-content: center;
+  min-height: 100dvh;
+}
+
+main {
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: 25px;
+  display: flex;
+  gap: 1rem;
+  width: 50vw;
+  flex-direction: row;
+}
+
+main > .content { flex: 1.3; }
+main > .illustration { flex: 1; }
+
+h1 { 
+  color: var(--dark-slate-grey);
+  font-size: 3rem;
+  margin-block: 1rem;
+}
+.content {
+  padding: 1rem;
+}
+
+.illustration {
+  background-color: red;
+  border-radius: 15px;
+}
+
+ul { 
+  list-style: none;
+}
+
+ul li { 
+  position: relative;
+  padding-block: 0.3rem;
+}
+
+ul li:before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  transform: translateY(-50%);
+  left: -2.5rem;
+  width: 1.3rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+#newsletter-email {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+#newsletter-email label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--dark-slate-grey);
+}
+.error-msg {
+  display: none;
+  color: var(--tomato);
+  font-weight: normal;
+}
+#newsletter-email.error .error-msg { display: block;}
+#newsletter-email input {
+  padding: 12px 24px;
+  border-radius: 5px;
+  border: 1px solid var(--grey);
+  outline: transparent;
+}
+#newsletter-email.error input {
+  background-color: var(--light-tomato);
+  border-color: var(--tomato);
+  color: var(--tomato);
+}
+#newsletter-email button {
+  background-color: var(--charcoal-grey);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 5px;
+  border: none;
+  outline: transparent;
+}
+#newsletter-email  button:hover {
+  cursor: pointer;
+  background-image: linear-gradient(90deg, var(--tomato), var(--orange));
+  box-shadow: 3px 3px 12px hsla(0, 0%, 15%, 0.2);
+}
+

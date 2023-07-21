@@ -1,0 +1,20 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto&display=swap);
+
+html {
+  font-family: 'Roboto', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.illustration {
+  background-image: url("/assets/images/illustration-sign-up-desktop.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+ul li:before {
+  background-image: url("/assets/images/icon-list.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
