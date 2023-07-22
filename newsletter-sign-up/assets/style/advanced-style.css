@@ -5,7 +5,7 @@ html {
 }
 
 .illustration {
-  background-image: url("/assets/images/illustration-sign-up-desktop.svg");
+  background-image: url("../images/illustration-sign-up-desktop.svg");
   background-position: center right;
   background-repeat: no-repeat;
   background-size: cover;
@@ -13,19 +13,19 @@ html {
 
 @media (max-width: 491px) {
   .illustration {
-    background-image: url("/assets/images/illustration-sign-up-mobile.svg");
+    background-image: url("../images/illustration-sign-up-mobile.svg");
   }
 }
 
 ul li:before {
-  background-image: url("/assets/images/icon-list.svg");
+  background-image: url("../images/icon-list.svg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 dialog .sucess-ico {
-  background-image: url("/assets/images/icon-success.svg");
+  background-image: url("../images/icon-success.svg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
