@@ -7,9 +7,22 @@ function handleEnterKey(e) {
 function retrieveEmail() {
   const userEmail = document.querySelector("#newsletter-email input").value;
   const isEmailValid = validateEmail(userEmail);
-  if (!isEmailValid)  document.querySelector("#newsletter-email").classList.add("error");
-  else  document.querySelector("#newsletter-email").classList.remove("error");
+  if (!isEmailValid)  {
+    document.querySelector("#newsletter-email").classList.add("error");
+    return;
+  }
+  
+  document.querySelector("#newsletter-email").classList.remove("error");
+  // document.querySelector("dialog").setAttribute("open", "");
+  document.querySelector("dialog").open = true;
+  document.querySelector("dialog p em").textContent = userEmail;
+  document.querySelector("#newsletter-email input").value = "";
 }
+
+function closeSuccessDialog() {
+  document.querySelector("dialog").open = false;
+}
+
 
 
 function validateEmail(email) {

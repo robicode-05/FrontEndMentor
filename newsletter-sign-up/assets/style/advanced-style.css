@@ -23,3 +23,10 @@ ul li:before {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+dialog .sucess-ico {
+  background-image: url("/assets/images/icon-success.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

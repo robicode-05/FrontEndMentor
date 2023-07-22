@@ -29,6 +29,11 @@ body {
   min-height: 100dvh;
 }
 
+/* hide main content when success dialog is opened */
+dialog[open] + main {
+  display: none;
+}
+
 main {
   background-color: var(--white);
   padding: 1rem;
@@ -107,7 +112,7 @@ ul li:before {
   border-color: var(--tomato);
   color: var(--tomato);
 }
-#newsletter-email button {
+button {
   background-color: var(--charcoal-grey);
   color: var(--white);
   padding: 12px 24px;
@@ -115,8 +120,13 @@ ul li:before {
   border: none;
   outline: transparent;
 }
-#newsletter-email  button:hover {
+ button:hover {
   cursor: pointer;
+  background-image: linear-gradient(90deg, var(--tomato), var(--orange));
+  box-shadow: 3px 3px 12px hsla(0, 0%, 15%, 0.2);
+}
+button:focus {
+  outline: 1px solid var(--dark-slate-grey);
   background-image: linear-gradient(90deg, var(--tomato), var(--orange));
   box-shadow: 3px 3px 12px hsla(0, 0%, 15%, 0.2);
 }
@@ -125,5 +135,57 @@ ul li:before {
 @media (max-width: 491px) {
   main {
     border-radius: 0;
+  }
+}
+
+dialog:not([open]) {
+  display: none;
+}
+
+dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 25rem;
+  padding: 50px;
+  border-radius: 25px;
+  border: none;
+  box-shadow: 3px 3px 12px hsla(0, 0%, 15%, 0.2);
+}
+
+dialog h2 {
+  font-size: 3rem;
+  margin: 0;
+  margin-top: 1rem;
+  color: var(--dark-slate-grey);
+}
+
+dialog .sucess-ico {
+  width: 3.5rem;
+  aspect-ratio: 1;
+  background-color: var(--tomato);
+  border-radius: 50%;
+}
+
+dialog p {
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+}
+
+dialog p em {
+  font-style: normal;
+  font-weight: bold;
+  color: var(--dark-slate-grey);
+}
+
+@media (max-width: 491px) {
+  dialog {
+    max-width: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+  dialog button {
+    margin-top: auto;
   }
 }
