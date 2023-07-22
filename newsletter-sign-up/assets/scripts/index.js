@@ -13,7 +13,6 @@ function retrieveEmail() {
   }
   
   document.querySelector("#newsletter-email").classList.remove("error");
-  // document.querySelector("dialog").setAttribute("open", "");
   document.querySelector("dialog").open = true;
   document.querySelector("dialog p em").textContent = userEmail;
   document.querySelector("#newsletter-email input").value = "";
