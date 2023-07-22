@@ -132,7 +132,7 @@ button:focus {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 510px) {
   main {
     border-radius: 0;
   }
@@ -179,7 +179,7 @@ dialog p em {
   color: var(--dark-slate-grey);
 }
 
-@media (max-width: 500px) {
+@media (max-width: 510px) {
   dialog {
     max-width: none;
     border-radius: 0;

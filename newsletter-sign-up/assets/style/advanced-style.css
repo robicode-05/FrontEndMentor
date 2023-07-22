@@ -11,7 +11,7 @@ html {
   background-size: cover;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 510px) {
   .illustration {
     background-image: url("../images/illustration-sign-up-mobile.svg");
   }
