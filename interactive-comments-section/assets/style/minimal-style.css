@@ -5,18 +5,13 @@ img { max-width: 100%; object-fit: contain; }
 body, main { margin: 0; }
 fieldset { border: none; }
 
-:root {
-
-}
-
 html {
   font-size: 16px;
 }
 
 body {
-  display: grid;
-  place-content: center;
-  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
 }
 
 main {

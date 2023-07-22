@@ -41,9 +41,30 @@ function renderMessages() {
  */
 function createMessageCardComponent(comment) {
   const messageCardComponent = document.createElement("message-card");
+
+  // Setting up attribute
+  messageCardComponent.setAttribute("id", comment.id);
   messageCardComponent.setAttribute("author", comment.user.username);
   messageCardComponent.setAttribute("created", comment.createdAt);
+  messageCardComponent.setAttribute("score", comment.score);
+
+  // Setting up slots
   messageCardComponent.appendChild(createMessageContent(comment));
+  if ((comment.replies?.length ?? 0) > 0) {
+    const replySlot = document.createElement("div");
+    replySlot.setAttribute("slot", "reply");
+    for (const reply of comment.replies) {
+      const replyCardComponent = createMessageCardComponent(reply);
+      replySlot.appendChild(replyCardComponent);
+    }
+    messageCardComponent.appendChild(replySlot);
+  }
+
+  // Setting up events
+  messageCardComponent.addEventListener("vote-plus", (e) => incrementScoreEventHandler(e))
+  messageCardComponent.addEventListener("vote-minus", (e) => decrementScoreEventHandler(e))
+  messageCardComponent.addEventListener("delete", (e) => deleteEventHandler(e))
+
   return messageCardComponent;
 }
 
@@ -60,4 +81,17 @@ function createMessageContent(comment, mode) {
 
   return messageContent;
   // }
+}
+
+
+
+// Event handler 
+function incrementScoreEventHandler(e) {
+  console.log("incrementScoreEventHandler", e);
+}
+function decrementScoreEventHandler(e) {
+  console.log("decrementScoreEventHandler", e);
+}
+function deleteEventHandler(e) {
+  console.log("deleteEventHandler", e);
 }
