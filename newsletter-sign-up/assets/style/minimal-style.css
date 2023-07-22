@@ -35,8 +35,8 @@ main {
   border-radius: 25px;
   display: flex;
   gap: 1rem;
-  width: 50vw;
   flex-direction: row;
+  flex-flow: wrap-reverse;
 }
 
 main > .content { flex: 1.3; }
@@ -52,8 +52,10 @@ h1 {
 }
 
 .illustration {
-  background-color: red;
+  background-color: var(--tomato);
   border-radius: 15px;
+  min-width: 200px;
+  min-height: 200px;
 }
 
 ul { 
@@ -119,3 +121,9 @@ ul li:before {
   box-shadow: 3px 3px 12px hsla(0, 0%, 15%, 0.2);
 }
 
+
+@media (max-width: 491px) {
+  main {
+    border-radius: 0;
+  }
+}

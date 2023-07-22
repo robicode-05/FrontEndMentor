@@ -1,7 +1,5 @@
 function handleEnterKey(e) {
-  console.log("handleEnterKey", e);
   if( e.key !== 'Enter') return;
-  
   e.preventDefault();
   retrieveEmail();
 }
@@ -14,7 +12,7 @@ function retrieveEmail() {
 }
 
 
-function  validateEmail(email) {
+function validateEmail(email) {
   return String(email)
     .toLowerCase()
     .match(
