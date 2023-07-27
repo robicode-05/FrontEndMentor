@@ -13,9 +13,8 @@ let comments = [];
 window.onload = async function() { 
   await retrieveStoredData();
   renderMessages();
-} 
+}
 
-    
 async function retrieveStoredData() {
   const response = await fetch("assets/data.json");
   const data = await response.json();
@@ -36,6 +35,15 @@ function renderMessages() {
 }
 
 
+function updateMessageRender(id, attr, value) {
+  const messageToUpdate = document.querySelector(`#message-card-${id}`);
+  console.log("messageToUpdate", messageToUpdate, id, attr, value);
+  if (messageToUpdate === null) return;
+
+  messageToUpdate.setAttribute(attr, value);
+}
+
+
 /**
  * @param {Comment} comment
  */
@@ -43,7 +51,7 @@ function createMessageCardComponent(comment) {
   const messageCardComponent = document.createElement("message-card");
 
   // Setting up attribute
-  messageCardComponent.setAttribute("id", comment.id);
+  messageCardComponent.setAttribute("id", `message-card-${comment.id}`);
   messageCardComponent.setAttribute("author", comment.user.username);
   if (comment.user.username === currentUser.username)  messageCardComponent.setAttribute("own", true);
   messageCardComponent.setAttribute("created", comment.createdAt);
@@ -62,11 +70,11 @@ function createMessageCardComponent(comment) {
   }
 
   // Setting up events
-  messageCardComponent.addEventListener("vote-plus", (e) => incrementScoreEventHandler(e))
-  messageCardComponent.addEventListener("vote-minus", (e) => decrementScoreEventHandler(e))
-  messageCardComponent.addEventListener("delete", (e) => deleteEventHandler(e))
-  messageCardComponent.addEventListener("edit", (e) => editEventHandler(e))
-  messageCardComponent.addEventListener("reply", (e) => replyEventHandler(e))
+  messageCardComponent.addEventListener("vote-plus", (e) => incrementScoreEventHandler(e, comment.id));
+  messageCardComponent.addEventListener("vote-minus", (e) => decrementScoreEventHandler(e));
+  messageCardComponent.addEventListener("delete", (e) => deleteEventHandler(e));
+  messageCardComponent.addEventListener("edit", (e) => editEventHandler(e));
+  messageCardComponent.addEventListener("reply", (e) => replyEventHandler(e));
 
   return messageCardComponent;
 }
@@ -89,8 +97,13 @@ function createMessageContent(comment, mode) {
 
 
 // Event handler 
-function incrementScoreEventHandler(e) {
+function incrementScoreEventHandler(e, id) {
   console.log("incrementScoreEventHandler", e);
+  const commentToIncrement = comments.find((c) => c.id === id);
+  if (commentToIncrement === undefined) return;
+
+  commentToIncrement.score++;
+  updateMessageRender(id, "score", commentToIncrement.score);
 }
 function decrementScoreEventHandler(e) {
   console.log("decrementScoreEventHandler", e);

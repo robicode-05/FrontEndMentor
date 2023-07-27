@@ -220,7 +220,7 @@ class EmployeeCard extends HTMLElement {
   set score(value) {
     if (value !== this._score) {
       this._score = value;
-      if (value !== null) this.shadowRoot.querySelector('.like-button span').innerText = this._created;
+      if (value !== null) this.shadowRoot.querySelector('.like-button span').innerText = this._score;
       else this.shadowRoot.querySelector('.like-button span').innerText = "";
     }
   }
