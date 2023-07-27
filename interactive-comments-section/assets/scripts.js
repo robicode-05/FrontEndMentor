@@ -45,6 +45,7 @@ function createMessageCardComponent(comment) {
   // Setting up attribute
   messageCardComponent.setAttribute("id", comment.id);
   messageCardComponent.setAttribute("author", comment.user.username);
+  if (comment.user.username === currentUser.username)  messageCardComponent.setAttribute("own", true);
   messageCardComponent.setAttribute("created", comment.createdAt);
   messageCardComponent.setAttribute("score", comment.score);
 
@@ -64,6 +65,8 @@ function createMessageCardComponent(comment) {
   messageCardComponent.addEventListener("vote-plus", (e) => incrementScoreEventHandler(e))
   messageCardComponent.addEventListener("vote-minus", (e) => decrementScoreEventHandler(e))
   messageCardComponent.addEventListener("delete", (e) => deleteEventHandler(e))
+  messageCardComponent.addEventListener("edit", (e) => editEventHandler(e))
+  messageCardComponent.addEventListener("reply", (e) => replyEventHandler(e))
 
   return messageCardComponent;
 }
@@ -94,4 +97,10 @@ function decrementScoreEventHandler(e) {
 }
 function deleteEventHandler(e) {
   console.log("deleteEventHandler", e);
+}
+function editEventHandler(e) {
+  console.log("editEventHandler", e);
+}
+function replyEventHandler(e) {
+  console.log("replyEventHandler", e);
 }

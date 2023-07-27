@@ -37,6 +37,21 @@ template.innerHTML = `
     border-left: 1px solid black;
   }
 
+  .tag {
+    background-color: blue;
+    color: white;
+    display: none;
+  }
+
+  .user-own-message .tag {
+    display: inline;
+  }
+  .action_edit { display: none; }
+  .user-own-message .action_edit { display: inline; }
+  .action_delete { display: none; }
+  .user-own-message .action_delete { display: inline; }
+  .user-own-message .action_reply { display: none; }
+
 </style>
 
 <div class="history">
@@ -50,11 +65,13 @@ template.innerHTML = `
       <div class="header">
         <div class="left">
           <span class="user-name"></span>
+          <span class="tag">you</span>
           <span class="message-date"></span>
         </div>
         <div class="right">
           <button class="action_delete">Delete</button>
-          <button>Reply</button>
+          <button class="action_edit">Edit</button>
+          <button class="action_reply">Reply</button>
         </div>
       </div>
       <p><slot name="content"/></p>    
@@ -66,8 +83,8 @@ template.innerHTML = `
   </div>
 </div>`;
 
-class EmployeeCard extends HTMLElement{
-  static get observedAttributes() { return ["id", "author", "created", "score"]; }
+class EmployeeCard extends HTMLElement {
+  static get observedAttributes() { return ["id", "author", "own", "created", "score"]; }
 
   constructor(){
     super();
@@ -98,6 +115,18 @@ class EmployeeCard extends HTMLElement{
       composed: true,
       detail: { id: this.id, },
     });
+    this.editEvent = new CustomEvent("edit", {
+      bubbles: false,
+      cancelable: false,
+      composed: true,
+      detail: { id: this.id, },
+    });
+    this.replyEvent = new CustomEvent("reply", {
+      bubbles: false,
+      cancelable: false,
+      composed: true,
+      detail: { id: this.id, },
+    });
   } 
 
   attributeChangedCallback(attr, oldVal, newVal) {
@@ -110,19 +139,28 @@ class EmployeeCard extends HTMLElement{
   connectedCallback(){
     this.shadowRoot.querySelector('.message-card').setAttribute("id", this._id);
     this.shadowRoot.querySelector('span.user-name').innerText = this._author;
+    if (this._own) this.shadowRoot.querySelector('.message-card').classList.add("user-own-message");
     this.shadowRoot.querySelector('span.message-date').innerText = this._created;
     this.shadowRoot.querySelector('.like-button span').innerText = this._score;
 
     // Custom Event
     this.shadowRoot.querySelector('button.action_plus')?.addEventListener("click", () => this.shadowRoot.dispatchEvent(this.incrementEvent));
     this.shadowRoot.querySelector('button.action_minus')?.addEventListener("click", () => this.shadowRoot.dispatchEvent(this.decrementEvent));
-    this.shadowRoot.querySelector('button.action_delete')?.addEventListener("click", () => this.shadowRoot.dispatchEvent(this.deleteEvent));
+    if (this._own) {
+      this.shadowRoot.querySelector('button.action_delete')?.addEventListener("click", () => this.shadowRoot.dispatchEvent(this.deleteEvent));
+      this.shadowRoot.querySelector('button.action_edit')?.addEventListener("click", () => this.shadowRoot.dispatchEvent(this.editEvent));
+    }
+    else this.shadowRoot.querySelector('button.action_reply')?.addEventListener("click", () => this.shadowRoot.dispatchEvent(this.replyEvent));
   }
 
   disconnectedCallback() {
     this.shadowRoot.querySelector('button.action_plus')?.removeEventListener("click", () => this.shadowRoot.dispatchEvent(this.incrementEvent));
     this.shadowRoot.querySelector('button.action_minus')?.removeEventListener("click", () => this.shadowRoot.dispatchEvent(this.decrementEvent));
-    this.shadowRoot.querySelector('button.action_delete')?.removeEventListener("click", () => this.shadowRoot.dispatchEvent(this.deleteEvent));
+    if (this._own) {
+      this.shadowRoot.querySelector('button.action_delete')?.removeEventListener("click", () => this.shadowRoot.dispatchEvent(this.deleteEvent));
+      this.shadowRoot.querySelector('button.action_edit')?.removeEventListener("click", () => this.shadowRoot.dispatchEvent(this.editEvent));
+    }
+    else this.shadowRoot.querySelector('button.action_reply')?.removeEventListener("click", () => this.shadowRoot.dispatchEvent(this.replyEvent));
   }
 
   get id() {
@@ -134,6 +172,19 @@ class EmployeeCard extends HTMLElement{
       this._id = value;
       if (value !== null) this.shadowRoot.querySelector('.message-card').setAttribute("id", this._id);
       else this.shadowRoot.querySelector('.message-card').removeAttribute("id");
+    }
+  }
+
+  get own() {
+    return this._own;
+  }
+    
+  set own(value) {
+    console.log("set own");
+    if (value !== this._own) {
+      this._own = value;
+      if (value !== null) this.shadowRoot.querySelector('.message-card').classList.add("user-own-message");
+      else this.shadowRoot.querySelector('.message-card').classList.remove("user-own-message");
     }
   }
 
