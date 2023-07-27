@@ -43,16 +43,18 @@ async function retrieveStoredData() {
   const response = await fetch("assets/data.json");
   const data = await response.json();
 
-  currentUser = new User(data.currentUser);    
+  currentUser = new User(data.currentUser);  
   
   // check if datas are stored are already stored locally
   const commentsStorage = localStorage.getItem("commentsStorage");
   if (commentsStorage === null) {
     for (const comment of data.comments) {
       comments.push(new Comment(comment));
+      for (const reply of comment.replies) {
+        comments.push(new Comment(reply, comment.id));
+      }
     }
-
-    localStorage.setItem("commentsStorage", JSON.stringify(data.comments));
+    localStorage.setItem("commentsStorage", JSON.stringify(comments));
   } 
   else comments = JSON.parse(localStorage.getItem("commentsStorage"));
 
@@ -76,7 +78,7 @@ function saveDatas() {
 function renderMessages() {
   const main = document.querySelector("body main");
 
-  for (const comment of comments) {
+  for (const comment of comments.filter((c) => c.parentId === undefined)) {
     const messageCardComponent = createMessageCardComponent(comment);
     main.appendChild(messageCardComponent); 
   }
@@ -106,10 +108,10 @@ function createMessageCardComponent(comment) {
 
   // Setting up slots
   messageCardComponent.appendChild(createMessageContent(comment));
-  if ((comment.replies?.length ?? 0) > 0) {
+  if (comments.some((c) => c.parentId === comment.id)) {
     const replySlot = document.createElement("div");
     replySlot.setAttribute("slot", "reply");
-    for (const reply of comment.replies) {
+    for (const reply of comments.filter((c) => c.parentId === comment.id)) {
       const replyCardComponent = createMessageCardComponent(reply);
       replySlot.appendChild(replyCardComponent);
     }
@@ -239,11 +241,18 @@ function decrementScoreEventHandler(e, id) {
 function deleteEventHandler(e, id) {
   console.log("deleteEventHandler", e);
 
-  for (const comment of comment) {
+  let a;
+  for (const comment of comments) {
     
     const potential = findCommentFromId(comment.replies, id);
-    if (potential !== undefined) return potential;
+    if (potential !== undefined) {
+      a = potential;
+      break;
+    };
   }
+
+  console.log("A", a);
+
 
 }
 function editEventHandler(e) {

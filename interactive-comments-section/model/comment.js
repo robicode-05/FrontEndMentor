@@ -5,15 +5,15 @@ export class Comment {
      * @param {string} createdAt
      * @param {number} score
      * @param {User} user
-     * @param {Comment[]} replies
+     * @param {number?} parentId
      */
 
-    constructor(commentJson) {
+    constructor(commentJson, parentId = undefined) {
         this.id = commentJson.id;
         this.content = commentJson.content;
         this.createdAt = commentJson.createdAt;
         this.score = commentJson.score;
         this.user = commentJson.user;
-        this.replies = commentJson.replies;
+        this.parentId = parentId;
     }
 }
