@@ -180,7 +180,6 @@ class EmployeeCard extends HTMLElement {
   }
     
   set own(value) {
-    console.log("set own");
     if (value !== this._own) {
       this._own = value;
       if (value !== null) this.shadowRoot.querySelector('.message-card').classList.add("user-own-message");

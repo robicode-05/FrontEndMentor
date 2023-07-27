@@ -16,19 +16,61 @@ let comments = [];
  */
 const votes = new Map();
 
+function replacer(key, value) {
+  if(value instanceof Map) {
+    return {
+      dataType: 'Map',
+      value: [...value],
+    };
+  } else return value;
+}
+
+function reviver(key, value) {
+  if(typeof value === 'object' && value !== null) {
+    if (value.dataType === 'Map') {
+      return new Map(value.value);
+    }
+  }
+  return value;
+}
+
 window.onload = async function() { 
   await retrieveStoredData();
   renderMessages();
 }
 
-async function retrieveStoredData() {
+async function retrieveStoredData() {  
   const response = await fetch("assets/data.json");
   const data = await response.json();
 
   currentUser = new User(data.currentUser);    
-  for (const comment of data.comments) {
+  
+  // check if datas are stored are already stored locally
+  const commentsStorage = localStorage.getItem("commentsStorage");
+  if (commentsStorage === null) {
+    for (const comment of data.comments) {
       comments.push(new Comment(comment));
+    }
+
+    localStorage.setItem("commentsStorage", JSON.stringify(data.comments));
+  } 
+  else comments = JSON.parse(localStorage.getItem("commentsStorage"));
+
+  const votesStorage = localStorage.getItem("votesStorage");
+  if (votesStorage === null) {
+    localStorage.setItem("votesStorage", JSON.stringify(votes, replacer));
+  } 
+  else {
+    const storedVotes = JSON.parse(localStorage.getItem("votesStorage"), reviver);
+    for (const [storedStoredEntryName, storedStoredEntryVotes] of storedVotes.entries()) {
+      votes.set(storedStoredEntryName, storedStoredEntryVotes);
+    }
   }
+}
+
+function saveDatas() {
+  localStorage.setItem("commentsStorage", JSON.stringify(comments));
+  localStorage.setItem("votesStorage", JSON.stringify(votes, replacer));
 }
 
 function renderMessages() {
@@ -77,7 +119,7 @@ function createMessageCardComponent(comment) {
   // Setting up events
   messageCardComponent.addEventListener("vote-plus", (e) => incrementScoreEventHandler(e, comment.id));
   messageCardComponent.addEventListener("vote-minus", (e) => decrementScoreEventHandler(e, comment.id));
-  messageCardComponent.addEventListener("delete", (e) => deleteEventHandler(e));
+  messageCardComponent.addEventListener("delete", (e) => deleteEventHandler(e, comment.id));
   messageCardComponent.addEventListener("edit", (e) => editEventHandler(e));
   messageCardComponent.addEventListener("reply", (e) => replyEventHandler(e));
 
@@ -89,14 +131,11 @@ function createMessageCardComponent(comment) {
  * @param {"reader" | "editor"} mode
  */
 function createMessageContent(comment, mode) {
-  // if (mode === "reader") {
-
   const messageContent = document.createElement("p");
   messageContent.setAttribute("slot", "content");
   messageContent.textContent = comment.content;
 
   return messageContent;
-  // }
 }
 
 
@@ -170,6 +209,7 @@ function incrementScoreEventHandler(e, id) {
   commentToIncrement.score++;
   updateMessageRender(id, "score", commentToIncrement.score);
   registerUserVote(currentUser.username, commentToIncrement.id, true);
+  saveDatas();
 }
 
 function decrementScoreEventHandler(e, id) {
@@ -190,11 +230,21 @@ function decrementScoreEventHandler(e, id) {
   if (commentToIncrement.user.username === currentUser.username) return;
   
   commentToIncrement.score--;
-   updateMessageRender(id, "score", commentToIncrement.score);
-   registerUserVote(currentUser.username, commentToIncrement.id, false);
+  updateMessageRender(id, "score", commentToIncrement.score);
+  registerUserVote(currentUser.username, commentToIncrement.id, false);
+  saveDatas();
 }
-function deleteEventHandler(e) {
+
+
+function deleteEventHandler(e, id) {
   console.log("deleteEventHandler", e);
+
+  for (const comment of comment) {
+    
+    const potential = findCommentFromId(comment.replies, id);
+    if (potential !== undefined) return potential;
+  }
+
 }
 function editEventHandler(e) {
   console.log("editEventHandler", e);
