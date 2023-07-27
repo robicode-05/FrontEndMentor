@@ -241,18 +241,12 @@ function decrementScoreEventHandler(e, id) {
 function deleteEventHandler(e, id) {
   console.log("deleteEventHandler", e);
 
-  let a;
-  for (const comment of comments) {
-    
-    const potential = findCommentFromId(comment.replies, id);
-    if (potential !== undefined) {
-      a = potential;
-      break;
-    };
-  }
+  const indexToRemove = comments.findIndex((c) => c.id === id);
+  if (indexToRemove < 0) return;
 
-  console.log("A", a);
-
+  comments.splice(indexToRemove, 1);
+  saveDatas();
+  document.querySelector(`#message-card-${id}`)?.remove();
 
 }
 function editEventHandler(e) {
