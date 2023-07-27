@@ -10,6 +10,12 @@ let currentUser;
  */
 let comments = [];
 
+/**
+ * Map with username and commentIds
+ * @type { Map<string, string[]> } 
+ */
+const votes = new Map();
+
 window.onload = async function() { 
   await retrieveStoredData();
   renderMessages();
@@ -37,7 +43,6 @@ function renderMessages() {
 
 function updateMessageRender(id, attr, value) {
   const messageToUpdate = document.querySelector(`#message-card-${id}`);
-  console.log("messageToUpdate", messageToUpdate, id, attr, value);
   if (messageToUpdate === null) return;
 
   messageToUpdate.setAttribute(attr, value);
@@ -71,7 +76,7 @@ function createMessageCardComponent(comment) {
 
   // Setting up events
   messageCardComponent.addEventListener("vote-plus", (e) => incrementScoreEventHandler(e, comment.id));
-  messageCardComponent.addEventListener("vote-minus", (e) => decrementScoreEventHandler(e));
+  messageCardComponent.addEventListener("vote-minus", (e) => decrementScoreEventHandler(e, comment.id));
   messageCardComponent.addEventListener("delete", (e) => deleteEventHandler(e));
   messageCardComponent.addEventListener("edit", (e) => editEventHandler(e));
   messageCardComponent.addEventListener("reply", (e) => replyEventHandler(e));
@@ -96,17 +101,97 @@ function createMessageContent(comment, mode) {
 
 
 
+/**
+ * @param {Comment[]} commentsSrc
+ * @param {string} id
+ * @returns {Comment | undefined}
+ */
+function findCommentFromId(commentsSrc, id) {
+  if (commentsSrc.some((c) => c.id === id)) return commentsSrc.find((c) => c.id === id);
+  for (const comment of commentsSrc) {
+    const potential = findCommentFromId(comment.replies, id);
+    if (potential !== undefined) return potential;
+  }
+}
+
+function userVoteBuilder(commentId, isPositive) {
+  return `votedForComment_${commentId}_VoteIs_${isPositive ? 'PLUS' : 'MINUS' }`;
+}
+
+function registerUserVote(username, commentId, isPositive) {
+  const userVote =  userVoteBuilder(commentId, isPositive);
+  const isUserRegistered = votes.has(username);
+  if (!isUserRegistered) {
+    votes.set(username, [userVote]);
+    return;
+  }
+
+  const doesUserHaveAlreadyAVoteForThisComment = votes.get(username).includes(userVote);
+  if (doesUserHaveAlreadyAVoteForThisComment) return;
+  votes.get(username).push(userVote);
+}
+
+function eraseUserVote(username, commentId, isPositive) {
+  const userVote = userVoteBuilder(commentId, isPositive);
+  if (!votes.has(username)) return;
+  const old = votes.get(username);
+  votes.get(username).splice(0);
+  votes.get(username).push(...old);
+}
+
+function checkIfUserCanVote(username, commentId, isPositive) {
+  const userVote = userVoteBuilder(commentId, isPositive);
+  const isUserRegistered = votes.has(username);
+  if (!isUserRegistered) return true;
+
+  const doesUserHaveAlreadyAVoteForThisComment = votes.get(username).includes(userVote);
+  if (doesUserHaveAlreadyAVoteForThisComment) return false;
+
+  return true;
+}
+
 // Event handler 
 function incrementScoreEventHandler(e, id) {
-  console.log("incrementScoreEventHandler", e);
-  const commentToIncrement = comments.find((c) => c.id === id);
+  const commentToIncrement = findCommentFromId(comments, id);
   if (commentToIncrement === undefined) return;
+  // Prevent multiple votes from same user
+  if (!checkIfUserCanVote(currentUser.username, id, true)) return;
+  
+  // Check if the user previously vote for the other option
+  // If it did => erase the old vote
+  if (!checkIfUserCanVote(currentUser.username, id, false)) {
+    eraseUserVote(currentUser.username, id, false);
+    commentToIncrement.score++;
+  }
+
+  // User cannot update its own comment
+  if (commentToIncrement.user.username === currentUser.username) return;
 
   commentToIncrement.score++;
   updateMessageRender(id, "score", commentToIncrement.score);
+  registerUserVote(currentUser.username, commentToIncrement.id, true);
 }
-function decrementScoreEventHandler(e) {
-  console.log("decrementScoreEventHandler", e);
+
+function decrementScoreEventHandler(e, id) {
+  const commentToIncrement = findCommentFromId(comments, id);
+  if (commentToIncrement === undefined) return;
+   // Prevent multiple votes from same user
+   if (!checkIfUserCanVote(currentUser.username, id, false)) return;
+
+    // Check if the user previously vote for the other option
+  // If it did => erase the old vote
+  if (!checkIfUserCanVote(currentUser.username, id, true)) {
+    eraseUserVote(currentUser.username, id, true);
+    commentToIncrement.score--;
+  }
+  
+  
+  // User cannot update its own comment
+  if (commentToIncrement.user.username === currentUser.username) return;
+  
+  commentToIncrement.score--;
+   updateMessageRender(id, "score", commentToIncrement.score);
+   registerUserVote(currentUser.username, commentToIncrement.id, false);
 }
 function deleteEventHandler(e) {
   console.log("deleteEventHandler", e);

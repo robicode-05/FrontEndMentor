@@ -224,12 +224,6 @@ class EmployeeCard extends HTMLElement {
       else this.shadowRoot.querySelector('.like-button span').innerText = "";
     }
   }
-
-  emitVotePlus() {
-    console.log("emitVotePlus");
-    this.dispatchEvent(votePlus);
-  }
-
 }
 
 
