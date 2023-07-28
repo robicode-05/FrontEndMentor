@@ -206,7 +206,7 @@ function eraseUserVote(username, commentId, isPositive) {
   votes.get(username).push(...old);
 }
 
-function checkIfUserCanVote(username, commentId, isPositive) {
+function checkIfUserHasVote(username, commentId, isPositive) {
   const userVote = userVoteBuilder(commentId, isPositive);
   const isUserRegistered = votes.has(username);
   if (!isUserRegistered) return true;
@@ -217,49 +217,55 @@ function checkIfUserCanVote(username, commentId, isPositive) {
   return true;
 }
 
+
 // Event handler 
 function incrementScoreEventHandler(e, id) {
   const commentToIncrement = findCommentFromId(comments, id);
   if (commentToIncrement === undefined) return;
+  // User cannot update its own comment
+  if (commentToIncrement.user.username === currentUser.username) return; 
   // Prevent multiple votes from same user
-  if (!checkIfUserCanVote(currentUser.username, id, true)) return;
-  
+  // We erase the previous vote is click again
+  if (!checkIfUserHasVote(currentUser.username, id, true)) {
+    eraseUserVote(currentUser.username, id, true);
+    commentToIncrement.score--;
+  }  
   // Check if the user previously vote for the other option
   // If it did => erase the old vote
-  if (!checkIfUserCanVote(currentUser.username, id, false)) {
-    eraseUserVote(currentUser.username, id, false);
+  else { 
+    if (!checkIfUserHasVote(currentUser.username, id, false)) {
+      eraseUserVote(currentUser.username, id, false);
+      commentToIncrement.score++;
+    }
     commentToIncrement.score++;
+    registerUserVote(currentUser.username, commentToIncrement.id, true);
   }
-
-  // User cannot update its own comment
-  if (commentToIncrement.user.username === currentUser.username) return;
-
-  commentToIncrement.score++;
   updateMessageRender(id, "score", commentToIncrement.score);
-  registerUserVote(currentUser.username, commentToIncrement.id, true);
   saveDatas();
 }
 
 function decrementScoreEventHandler(e, id) {
-  const commentToIncrement = findCommentFromId(comments, id);
-  if (commentToIncrement === undefined) return;
-   // Prevent multiple votes from same user
-   if (!checkIfUserCanVote(currentUser.username, id, false)) return;
-
-    // Check if the user previously vote for the other option
-  // If it did => erase the old vote
-  if (!checkIfUserCanVote(currentUser.username, id, true)) {
-    eraseUserVote(currentUser.username, id, true);
-    commentToIncrement.score--;
-  }
-  
-  
+  const commentToDecrement = findCommentFromId(comments, id);
+  if (commentToDecrement === undefined) return;
   // User cannot update its own comment
-  if (commentToIncrement.user.username === currentUser.username) return;
-  
-  commentToIncrement.score--;
-  updateMessageRender(id, "score", commentToIncrement.score);
-  registerUserVote(currentUser.username, commentToIncrement.id, false);
+  if (commentToDecrement.user.username === currentUser.username) return; 
+  // Prevent multiple votes from same user
+  // We erase the previous vote is click again
+  if (!checkIfUserHasVote(currentUser.username, id, false)) {
+    eraseUserVote(currentUser.username, id, false);
+    commentToDecrement.score++;
+  }  
+  // Check if the user previously vote for the other option
+  // If it did => erase the old vote
+  else { 
+    if (!checkIfUserHasVote(currentUser.username, id, true)) {
+      eraseUserVote(currentUser.username, id, true);
+      commentToDecrement.score--;
+    }
+    commentToDecrement.score--;
+    registerUserVote(currentUser.username, commentToDecrement.id, false);
+  }
+  updateMessageRender(id, "score", commentToDecrement.score);
   saveDatas();
 }
 
