@@ -35,8 +35,33 @@ function reviver(key, value) {
 }
 
 window.onload = async function() { 
+  document.querySelector(".loader")?.classList.remove("hidden");
   await retrieveStoredData();
+  document.querySelector(".comment-input img")?.setAttribute("src", currentUser.image.webp);
   renderMessages();
+  document.querySelector(".comment-input button")?.addEventListener("click", () => sendMessage());
+  document.querySelector(".loader")?.classList.add("hidden");
+}
+
+function sendMessage() {
+  const textArea = document.querySelector(".comment-input textarea");
+  if( textArea === null) return; 
+  const messageText = textArea.value.trim();
+  if (messageText === "") return;
+
+  const newComment = {
+    id: comments.length,
+    content: messageText,
+    createdAt: Date.now().toString(),
+    score: 0,
+    user: currentUser,
+  }
+
+  comments.push(newComment);
+  
+  renderMessages();
+  textArea.value = "";
+  saveDatas();
 }
 
 async function retrieveStoredData() {  
@@ -76,7 +101,8 @@ function saveDatas() {
 }
 
 function renderMessages() {
-  const main = document.querySelector("body main");
+  const main = document.querySelector("body main .comment-section");
+  main.replaceChildren();
 
   for (const comment of comments.filter((c) => c.parentId === undefined)) {
     const messageCardComponent = createMessageCardComponent(comment);
@@ -239,7 +265,6 @@ function decrementScoreEventHandler(e, id) {
 
 
 function deleteEventHandler(e, id) {
-  console.log("deleteEventHandler", e);
 
   const indexToRemove = comments.findIndex((c) => c.id === id);
   if (indexToRemove < 0) return;
@@ -250,8 +275,6 @@ function deleteEventHandler(e, id) {
 
 }
 function editEventHandler(e) {
-  console.log("editEventHandler", e);
 }
 function replyEventHandler(e) {
-  console.log("replyEventHandler", e);
 }

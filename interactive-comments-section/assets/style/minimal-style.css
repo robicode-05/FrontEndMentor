@@ -20,3 +20,22 @@ main {
   gap: 1rem;
   margin-inline: 25%;
 }
+
+.comment-input {
+  display: flex;
+  border: 1px solid black;
+  padding: 5px;
+  gap: 0.3rem;
+
+}
+.comment-input textarea {
+  flex-grow: 1;
+}
+
+img[src=""] {
+  visibility: hidden;
+}
+
+.loader.hidden {
+  display: none;
+}
