@@ -32,8 +32,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Github repo](https://github.com/robicode-05/front-end-mentor/tree/master/faq-accordion)
+- Live Site URL: [Github live demo](https://robicode-05.github.io/front-end-mentor/faq-accordion/index.html)
 
 ## My process
 
