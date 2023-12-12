@@ -1,0 +1,35 @@
+/* @import url(https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap); */
+
+
+body::before {
+  background-image: url("../images/background-pattern-desktop.svg");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+}
+h1::before {
+  content: "";
+  min-width: 1em;
+  aspect-ratio: 1;
+  margin-right: 15px;
+  background-image: url("../images/icon-star.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+details summary:after {
+  background-image: url("../images/icon-plus.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+details[open] summary:after {
+  background-image: url("../images/icon-minus.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
