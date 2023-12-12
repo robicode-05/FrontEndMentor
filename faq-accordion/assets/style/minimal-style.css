@@ -31,7 +31,7 @@ main {
   margin: auto;
   background-color: var(--white);
   border-radius: 1rem;
-  padding: 2rem 0;
+  padding: 2rem;
   /* margin-inline: 24px; */
 }
 details, h1 {
@@ -86,4 +86,5 @@ details p {
   font-weight: 400;
   color: grey;
   max-width: 55ch;
+  line-height: 1.7rem;
 }
