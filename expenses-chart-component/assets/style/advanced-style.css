@@ -1,0 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=DM+Sans&display=swap);
+
+html {
+  font-family: 'DM Sans', system-ui;
+}
+
+header {
+  background-image: url("../images/logo.svg");
+  background-position: 92% center;
+  background-repeat: no-repeat;
+  
+}
