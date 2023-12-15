@@ -26,12 +26,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.png)
+![](screenshot.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Github repo](https://github.com/robicode-05/front-end-mentor/tree/master/expenses-chart-component)
+- Live Site URL: [Github live demo](https://robicode-05.github.io/front-end-mentor/expenses-chart-component/index.html)
 
 ## My process
 
