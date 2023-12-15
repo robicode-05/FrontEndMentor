@@ -128,7 +128,7 @@ h3 {
 #spending-chart li data {
   --transparency: 1;
   
-  position: absolute;
+  margin-bottom: 5px;
   content: "";
   left: 50%;
   transform: translate(-50%);
